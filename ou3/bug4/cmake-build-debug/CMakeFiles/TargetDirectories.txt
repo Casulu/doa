@@ -1,0 +1,3 @@
+/home/rasmus/Documents/doa/ou3/bug4/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/rasmus/Documents/doa/ou3/bug4/cmake-build-debug/CMakeFiles/bug4.dir
+/home/rasmus/Documents/doa/ou3/bug4/cmake-build-debug/CMakeFiles/edit_cache.dir

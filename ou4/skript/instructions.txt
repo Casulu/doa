@@ -1,0 +1,30 @@
+﻿Detta skript kör testet från cambro med givna inställningar och delar upp resultatet till varje test i egna filer samt genererar filer med medelvärdet av körningarna om
+varje test kördes mer än en gång.
+
+
+Placera alla filer från denna mapp i godtycklig mapp tillsammans.
+Fungerar med alla olika tabeller som ska kompileras med det givna testet.
+Om du kör utanför labbsalen behöver du python3.X och en fil kompilerad till det systemet du kör på samt cygwin om du kör på windows. 
+Testat på windows (med cygwin) och ubuntu. (Utöver linux-labbsalarna)
+
+Huvudfilen "complete.sh" ska köras med bash-skalet.
+Ankallandet med parametrar ser ut så här.
+"bash {mappen där du placerade skripten}/complete.sh {sökvägen till ditt kompilerade program} {max antal element att testa med} {antal olika stora elementantal som max antalet delas upp i} {antalet gånger varje test körs (för bättre medelvärde)}"
+Mappen du är i när du kör kommandot i terminalen är där nya mappar med resultat kommer skapas.
+
+(exempelvis "bash complete.sh tabletest 20000 10 5" som kör testet från cambro 10*5 gånger med värden (20000/10)*n där nE{1,2,3,4,5,6,7,8,9,10})
+
+Testet kan ta en stund beroende på antal element och tester (typ lääänge vid bautatal)
+Jag rekommenderar att ni kör på labbsalens datorer eller fjärrkopplat till peppar eller salt (snabbare per tråd än itchy/scratchy). (Går att ssh:a till båda samtidigt) 
+
+Resultat hamnar i mappen "{programnamn}_{testinput}" där roten är mappen du körde allt ifrån i terminalen. 
+"raw.txt" är råa datat, mappen "split" har alla tester sorterat i testnummer, 
+och mappen "splitavg" har alla tester sorterat i testnummer och med medelvärdet av testet för varje elementmängd.
+
+"plotter.m" kopieras automatiskt till varje körnings resultat.
+I toppen av matlab koden kan man ändra den förutspådda komplexiten för varje operation som används i varje test.
+För att använda plottern öppna matlab och välj ditt resultats mapp som aktiv mapp i matlab och skriv sedan "plotter" i matlabkonsollen.
+Resultatet ni från från plotter räcker INTE för att få godkänt. Ni måste på något sätt plotta flera implementationer på samma graf för att jämföra dem. 
+"plotter.m" kan användas som bas
+
+De två python skripten fungerar utan .sh skriptet med "skriptet.py {råa resultat}". Skripten kan ta emot flera råa filer ifall att du inte kört alla dina test till samma fil.

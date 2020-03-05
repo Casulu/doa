@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated />
+  </component>
+  <component name="CMakeSettings" AUTO_RELOAD="true">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="98dc5366-e5cc-469f-9230-3f40054c1ea1" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ProjectId" id="1Xvjnsjzdrkyosc2kLl2qUN7LNU" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="/run/user/1000/gvfs/sftp:host=salt.cs.umu.se/home/c19/c19rll/Public/splitfile.py" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="language.cpp" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="ou4" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3.8" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sortfiles.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="splitfile" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="ou4" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3.8" />
+      <option name="WORKING_DIRECTORY" value="/run/user/1000/gvfs/sftp:host=salt.cs.umu.se/home/c19/c19rll/Public" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="/run/user/1000/gvfs/sftp:host=salt.cs.umu.se/home/c19/c19rll/Public/splitfile.py" />
+      <option name="PARAMETERS" value="test_table_results/raw.txt" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="98dc5366-e5cc-469f-9230-3f40054c1ea1" name="Default Changelist" comment="" />
+      <created>1581933632196</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1581933632196</updated>
+      <workItem from="1581933633826" duration="4756000" />
+      <workItem from="1582023608432" duration="5000" />
+      <workItem from="1582156651425" duration="3730000" />
+      <workItem from="1582209179350" duration="557000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="445" y="211" width="1084" height="720" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582209647427">
+      <screen x="55" y="27" width="1865" height="1053" />
+    </state>
+    <state x="445" y="211" width="1084" height="720" key="#com.intellij.execution.impl.EditConfigurationsDialog/55.27.1865.1053@55.27.1865.1053" timestamp="1582209647427" />
+    <state x="683" y="358" width="598" height="397" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1582209229822">
+      <screen x="55" y="27" width="1865" height="1053" />
+    </state>
+    <state x="683" y="358" width="598" height="397" key="#com.intellij.fileTypes.FileTypeChooser/55.27.1865.1053@55.27.1865.1053" timestamp="1582209229822" />
+    <state x="770" y="329" width="424" height="491" key="FileChooserDialogImpl" timestamp="1582209606125">
+      <screen x="55" y="27" width="1865" height="1053" />
+    </state>
+    <state x="770" y="329" width="424" height="491" key="FileChooserDialogImpl/55.27.1865.1053@55.27.1865.1053" timestamp="1582209606125" />
+    <state width="1819" height="340" key="GridCell.Tab.0.bottom" timestamp="1582209735862">
+      <screen x="55" y="27" width="1865" height="1053" />
+    </state>
+    <state width="1819" height="340" key="GridCell.Tab.0.bottom/55.27.1865.1053@55.27.1865.1053" timestamp="1582209735862" />
+    <state width="1819" height="340" key="GridCell.Tab.0.center" timestamp="1582209735862">
+      <screen x="55" y="27" width="1865" height="1053" />
+    </state>
+    <state width="1819" height="340" key="GridCell.Tab.0.center/55.27.1865.1053@55.27.1865.1053" timestamp="1582209735862" />
+    <state width="1819" height="340" key="GridCell.Tab.0.left" timestamp="1582209735861">
+      <screen x="55" y="27" width="1865" height="1053" />
+    </state>
+    <state width="1819" height="340" key="GridCell.Tab.0.left/55.27.1865.1053@55.27.1865.1053" timestamp="1582209735861" />
+    <state width="1819" height="340" key="GridCell.Tab.0.right" timestamp="1582209735862">
+      <screen x="55" y="27" width="1865" height="1053" />
+    </state>
+    <state width="1819" height="340" key="GridCell.Tab.0.right/55.27.1865.1053@55.27.1865.1053" timestamp="1582209735862" />
+    <state width="1819" height="340" key="GridCell.Tab.1.bottom" timestamp="1582209735863">
+      <screen x="55" y="27" width="1865" height="1053" />
+    </state>
+    <state width="1819" height="340" key="GridCell.Tab.1.bottom/55.27.1865.1053@55.27.1865.1053" timestamp="1582209735863" />
+    <state width="1819" height="340" key="GridCell.Tab.1.center" timestamp="1582209735862">
+      <screen x="55" y="27" width="1865" height="1053" />
+    </state>
+    <state width="1819" height="340" key="GridCell.Tab.1.center/55.27.1865.1053@55.27.1865.1053" timestamp="1582209735862" />
+    <state width="1819" height="340" key="GridCell.Tab.1.left" timestamp="1582209735862">
+      <screen x="55" y="27" width="1865" height="1053" />
+    </state>
+    <state width="1819" height="340" key="GridCell.Tab.1.left/55.27.1865.1053@55.27.1865.1053" timestamp="1582209735862" />
+    <state width="1819" height="340" key="GridCell.Tab.1.right" timestamp="1582209735863">
+      <screen x="55" y="27" width="1865" height="1053" />
+    </state>
+    <state width="1819" height="340" key="GridCell.Tab.1.right/55.27.1865.1053@55.27.1865.1053" timestamp="1582209735863" />
+    <state x="643" y="381" key="com.intellij.ide.util.TipDialog" timestamp="1582209190101">
+      <screen x="55" y="27" width="1865" height="1053" />
+    </state>
+    <state x="643" y="381" key="com.intellij.ide.util.TipDialog/55.27.1865.1053@55.27.1865.1053" timestamp="1582209190101" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/sortfiles.py</url>
+          <line>27</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file:///run/user/1000/gvfs/sftp:host=salt.cs.umu.se/home/c19/c19rll/Public/splitfile.py</url>
+          <line>3</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="int(line[0])" language="Python" />
+        <watch expression="tests.index(test)" />
+        <watch expression="run[1]" />
+        <watch expression="run[0]" />
+        <watch expression="avgtest[tests.index(test)]" />
+        <watch expression="avgtest[tests.index(test)][run[0]]" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/ou4$sortfiles.coverage" NAME="sortfiles Coverage Results" MODIFIED="1582181057424" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ou4$splitfile.coverage" NAME="splitfile Coverage Results" MODIFIED="1582209653422" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="/run/user/1000/gvfs/sftp:host=salt.cs.umu.se/home/c19/c19rll/Public" />
+  </component>
+</project>

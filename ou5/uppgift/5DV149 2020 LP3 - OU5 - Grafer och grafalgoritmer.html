@@ -1,0 +1,1293 @@
+<!--?xml version="1.0" encoding="utf-8"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><style class="darkreader darkreader--fallback" media="screen"></style><style class="darkreader darkreader--text" media="screen"></style><style class="darkreader darkreader--invert" media="screen">.jfk-bubble {
+    filter: invert(100%) hue-rotate(180deg) contrast(90%) !important;
+}</style><style class="darkreader darkreader--inline" media="screen">[data-darkreader-inline-bgcolor] {
+  background-color: var(--darkreader-inline-bgcolor) !important;
+}
+[data-darkreader-inline-bgimage] {
+  background-image: var(--darkreader-inline-bgimage) !important;
+}
+[data-darkreader-inline-border] {
+  border-color: var(--darkreader-inline-border) !important;
+}
+[data-darkreader-inline-border-bottom] {
+  border-bottom-color: var(--darkreader-inline-border-bottom) !important;
+}
+[data-darkreader-inline-border-left] {
+  border-left-color: var(--darkreader-inline-border-left) !important;
+}
+[data-darkreader-inline-border-right] {
+  border-right-color: var(--darkreader-inline-border-right) !important;
+}
+[data-darkreader-inline-border-top] {
+  border-top-color: var(--darkreader-inline-border-top) !important;
+}
+[data-darkreader-inline-boxshadow] {
+  box-shadow: var(--darkreader-inline-boxshadow) !important;
+}
+[data-darkreader-inline-color] {
+  color: var(--darkreader-inline-color) !important;
+}
+[data-darkreader-inline-fill] {
+  fill: var(--darkreader-inline-fill) !important;
+}
+[data-darkreader-inline-stroke] {
+  stroke: var(--darkreader-inline-stroke) !important;
+}
+[data-darkreader-inline-outline] {
+  outline-color: var(--darkreader-inline-outline) !important;
+}</style><style class="darkreader darkreader--user-agent" media="screen">html {
+    background-color: #181a1b !important;
+}
+html, body, input, textarea, select, button {
+    background-color: #181a1b;
+}
+html, body, input, textarea, select, button {
+    border-color: #575757;
+    color: #e8e6e3;
+}
+a {
+    color: #3391ff;
+}
+table {
+    border-color: #4c4c4c;
+}
+::placeholder {
+    color: #bab5ab;
+}
+::selection {
+    background-color: #005ccc;
+    color: #ffffff;
+}
+::-moz-selection {
+    background-color: #005ccc;
+    color: #ffffff;
+}
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    background-color: #545b00 !important;
+    color: #e8e6e3 !important;
+}
+::-webkit-scrollbar {
+    background-color: #1c1e1f;
+    color: #c5c1b9;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #2a2c2e;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #323537;
+}
+::-webkit-scrollbar-thumb:active {
+    background-color: #3d4043;
+}
+::-webkit-scrollbar-corner {
+    background-color: #181a1b;
+}
+* {
+    scrollbar-color: #2a2c2e #1c1e1f;
+}</style>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5DV149 2020 LP3 - OU5 - Grafer och grafalgoritmer</title>
+<meta name="generator" content="Org mode">
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style><style class="darkreader darkreader--sync" media="screen"></style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<style class="darkreader darkreader--override" media="screen">.vimvixen-hint {
+    background-color: #7b5300 !important;
+    border-color: #d8b013 !important;
+    color: #f3e8c8 !important;
+}
+::placeholder {
+    opacity: 0.5 !important;
+}</style><style>@media print {#ghostery-purple-box {display:none !important}}</style></head>
+<body>
+<div id="content">
+<h1 class="title">5DV149 2020 LP3 - OU5 - Grafer och grafalgoritmer</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org3bff449">1. Ändringshistorik</a></li>
+<li><a href="#orgd59bc10">2. Syfte</a></li>
+<li><a href="#orgf62da09">3. Genomförande</a>
+<ul>
+<li><a href="#org3f247f9">3.1. Översikt</a></li>
+<li><a href="#orgca35054">3.2. Filformat</a></li>
+<li><a href="#org3b95a82">3.3. Kodstruktur</a>
+<ul>
+<li><a href="#orga57ce77">3.3.1. Grafrepresentation</a></li>
+<li><a href="#orge9cf50e">3.3.2. Huvudfilen</a></li>
+<li><a href="#org651f34b">3.3.3. Datatyper</a></li>
+<li><a href="#orgdda2e57">3.3.4. När är två noder lika?</a></li>
+</ul>
+</li>
+<li><a href="#orgc056c19">3.4. Användning</a></li>
+<li><a href="#orgccb7081">3.5. Felkontroller</a></li>
+<li><a href="#org54b6f93">3.6. Att tänka på</a>
+<ul>
+<li><a href="#orgae2482c">3.6.1. Tips</a></li>
+</ul>
+</li>
+<li><a href="#org72f3ebd">3.7. Gruppinlämning</a></li>
+<li><a href="#org2e6a9d3">3.8. Övriga/sammanfattande krav på koden</a></li>
+</ul>
+</li>
+<li><a href="#orgc247ff8">4. Datatypskod ("kodbasen")</a></li>
+<li><a href="#org089e824">5. Rapport</a>
+<ul>
+<li><a href="#org059e1dd">5.1. Innehåll</a></li>
+<li><a href="#org56f0565">5.2. Organisation</a></li>
+</ul>
+</li>
+<li><a href="#orgb43f6e0">6. Inlämning</a></li>
+<li><a href="#org23cf2bf">7. Bedömning</a>
+<ul>
+<li><a href="#orgf49966e">7.1. Bedömningsmall</a></li>
+<li><a href="#org6f94143">7.2. Betyg</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org3bff449" class="outline-2">
+<h2 id="org3bff449"><span class="section-number-2">1</span> Ändringshistorik</h2>
+<div class="outline-text-2" id="text-1">
+<table rules="groups" frame="hsides" cellspacing="0" cellpadding="6" border="2">
+
+
+<colgroup>
+<col class="org-left">
+
+<col class="org-right">
+
+<col class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Version</th>
+<th scope="col" class="org-right">Datum</th>
+<th scope="col" class="org-left">Kommentar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">v1.0</td>
+<td class="org-right">2020-02-20</td>
+<td class="org-left">Första publicering.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgd59bc10" class="outline-2">
+<h2 id="orgd59bc10"><span class="section-number-2">2</span> Syfte</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Syftet med denna obligatoriska uppgift är att du ska få öva på
+</p>
+<ul class="org-ul">
+<li>att använda existerande datatypsimplementationer till att
+implementera några grafalgoritmer,</li>
+<li>att bryta ner ett komplext problem i mindre problem,</li>
+<li>filhantering av textfiler,</li>
+<li>dokumentation av ett program.</li>
+</ul>
+<p>
+De FSR (lärmål) som examineras med denna uppgift är att:
+</p>
+<ul class="org-ul">
+<li>implementera lösningen i form av ett program i programspråket C och</li>
+<li>tillämpa dynamisk minnesallokering.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgf62da09" class="outline-2">
+<h2 id="orgf62da09"><span class="section-number-2">3</span> <a id="org6e824a0"></a> Genomförande</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org3f247f9" class="outline-3">
+<h3 id="org3f247f9"><span class="section-number-3">3.1</span> Översikt</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+I denna uppgift ska du skriva ett program som läser in en beskrivning
+av en <b>riktad graf</b> och sedan besvarar frågor om det finns någon väg
+mellan noderna. För att svara på frågan så ska en
+<b>bredden-först-traversering</b> göras i grafen.
+</p>
+
+<p>
+Programmet ska ta namnet på en fil med grafbeskrivningen som
+kommandoradsparameter. Filformatet beskrivs nedan i sektion <a href="#orgf9da344">3.2</a>.
+Frågorna ska ställas interaktivt till användaren. Användargränssnittet
+beskrivs nedan i sektion <a href="#org7a07614">3.4</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgca35054" class="outline-3">
+<h3 id="orgca35054"><span class="section-number-3">3.2</span> <a id="orgf9da344"></a> Filformat</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Grafbeskrivningen ligger i en textfil. Textfilen har följande format:
+</p>
+<ul class="org-ul">
+<li>Filen kan innehålla blankrader och kommentarsrader som ska ignoreras.
+<ul class="org-ul">
+<li>En kommentarsrad inleds med tecknet <code>#</code>.</li>
+</ul></li>
+<li>Första raden (förutom blank- och kommentarsrader) innehåller ett
+heltal med antalet kanter i grafen.</li>
+<li>Övriga rader innehåller en båge var:
+<ul class="org-ul">
+<li>Raderna innehåller två nodnamn var separerade av mellanslag.</li>
+<li>Raderna kan inledas med blanktecken som ska ignoreras.</li>
+<li>Raderna kan avslutas med mellanslag och extra text som också ska
+ignoreras.</li>
+<li>Nodnamnen består av alfanumeriska tecken och är vardera max 40
+tecken långa.
+<ul class="org-ul">
+<li>Alfanumeriska tecken inkluderar tecknen 0-9, a-z, A-Z.</li>
+</ul></li>
+<li>Avslutande rad i filen kan sakna radslut.</li>
+</ul></li>
+<li>Textfilen kan vara i unix eller dos-format.</li>
+<li>Det finns inga dubblettbågar i filen.</li>
+</ul>
+
+<p>
+Ett exempel på kartfil ges här (du kan ladda ner filen <a href="https://www8.cs.umu.se/kurser/5DV149/VT20-1/labbar/ou5/airmap1.map">här</a>). Grafen
+illustreras i <a href="#org401edd8">Figur 1</a>.
+</p>
+<pre class="example"># Some airline network
+8
+UME BMA # Umea-Bromma
+BMA UME # Bromma-Umea
+BMA MMX # Bromma-Malmo
+MMX BMA # Malmo-Bromma
+BMA GOT # Bromma-Goteborg
+GOT BMA # Goteborg-Bromma
+LLA PJA # Lulea-Pajala
+PJA LLA # Pajala-Lulea
+</pre>
+
+
+<div id="org401edd8" class="figure">
+<p><img src="5DV149%202020%20LP3%20-%20OU5%20-%20Grafer%20och%20grafalgoritmer_files/graph1.png" alt="airmap1.map" width="150">
+</p>
+<p><span class="figure-number">Figure 1: </span>Graf motsvarande <code>airmap1.map</code>.</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3b95a82" class="outline-3">
+<h3 id="org3b95a82"><span class="section-number-3">3.3</span> Kodstruktur</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+Er kod ska vara uppdelad i två filer. Filen <code>graph.c</code> ska innehålla
+(delar av) en implementation av datatypen Graf. Filen <code>is_connected.c</code>
+ska innehålla en huvudprogram som använder grafen. Gränssnittet till
+Graf finns beskrivet i filen <a href="https://www8.cs.umu.se/kurser/5DV149/VT20-1/labbar/ou5/graph.h">graph.h</a>.
+</p>
+</div>
+
+<div id="outline-container-orga57ce77" class="outline-4">
+<h4 id="orga57ce77"><span class="section-number-4">3.3.1</span> <a id="org5c5e962"></a>Grafrepresentation</h4>
+<div class="outline-text-4" id="text-3-3-1">
+<p>
+Filen <code>graph.c</code> ska innehålla implementationen av delar av gränsytan för
+den abstrakta datatypen Graf. Den fullständiga gränsytan finns
+beskriven i filen <a href="https://www8.cs.umu.se/kurser/5DV149/VT20-1/labbar/ou5/graph.h">graph.h</a>. I denna laboration behöver ni bara
+implementera de delar som behövs för att lösa den här uppgiften. Det
+är t.ex. okej om funktionen <code>graph_delete_edge</code> inte finns
+implementerad.
+</p>
+
+<p>
+Det ingår i uppgiften att ni ska själva välja hur ni vill representera
+noderna och grafen. Tänk på att allt data som behövs för att
+representera och traversera grafen ska lagras i grafen. Det får t.ex.
+inte finnas någon separat tabell eller lista i huvudprogrammet.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge9cf50e" class="outline-4">
+<h4 id="orge9cf50e"><span class="section-number-4">3.3.2</span> Huvudfilen</h4>
+<div class="outline-text-4" id="text-3-3-2">
+<p>
+Huvudprogrammet ska läsa in grafen från kartfilen, interagera med
+användaren och göra bredden-först-sökningen i grafen. Huvudprogrammet
+får endast kommunicera med grafen och noder via funktioner som finns
+beskrivna i <a href="https://www8.cs.umu.se/kurser/5DV149/VT20-1/labbar/ou5/graph.h">graph.h</a>. Huvudprogrammet får alltså inte utnyttja någon
+kännedom om hur grafen eller noderna är implementerade. Ni får t.ex.
+inte definiera hur datatypen <code>node</code> ser ut i <code>is_connected.c</code>. Den
+kunskapen ska bara finnas i <code>graph.c</code>. Det ska med andra ord gå att
+byta ut er <code>graph.c</code> mot någon annans korrekta implementation.
+</p>
+
+<p>
+Funktionen som traverserar grafen ska ha funktionshuvudet
+</p>
+<div class="org-src-container">
+<pre class="src src-c">bool find_path(graph *g,node *src,node *dest)
+</pre>
+</div>
+<p>
+där <code>g</code> är en pekare till grafen, <code>src</code> och <code>dest</code> är pekare till
+noder som finns i grafen. Funktionen ska returnera <code>true</code> om det finns
+en väg mellan <code>src</code> och <code>dest</code>, annars <code>false</code>. All information som
+behövs för att göra traverseringen ska lagras i grafen.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org651f34b" class="outline-4">
+<h4 id="org651f34b"><span class="section-number-4">3.3.3</span> Datatyper</h4>
+<div class="outline-text-4" id="text-3-3-3">
+<p>
+Ni både får och måste använda datatyperna i kodbasen. Datatyperna är
+byggstenar som går att använda för att lösa uppgiften. Ni får använda
+så många ni vill. <b>Ni får inte implementera några egna dynamiska
+datatyper</b>. Behöver ni en Lista, använd den i kodbasen. Behöver ni en
+Kö, använd den i kodbasen. Vill ni t.ex. implementera en hashtabell så
+får ni göra det, men om hashtabellen behöver ett fält eller en lista
+så måste ni använda den i kodbasen. Och så vidare.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgdda2e57" class="outline-4">
+<h4 id="orgdda2e57"><span class="section-number-4">3.3.4</span> När är två noder lika?</h4>
+<div class="outline-text-4" id="text-3-3-4">
+<p>
+Datatypen <code>node</code> deklareras i <code>graph.h</code>, men dess interna struktur får
+endast vara känd inuti <code>graph.c</code>. För att <code>find_path</code> ska kunna avgöra
+när den nått fram till destinationsnoden behövs därför en
+hjälpfunktion som berättar om två noder anses lika. Den deklareras i
+<code>graph.h</code> som
+</p>
+<div class="org-src-container">
+<pre class="src src-c">bool nodes_are_equal(const node *n1,const node *n2);
+</pre>
+</div>
+<p>
+Funktionen ska implementeras i <code>graph.c</code> och returnera <code>true</code> om
+noderna anses vara identiska. Det är upp till er att avgöra hur ni
+vill definiera likhet för noder, t.ex. via nodnamn. Fördelen med att
+gömma detaljerna kring <code>node</code> inuti <code>graph.c</code> är förstås att det då
+går att byta ut den interna representationen utan att användaren
+märker det.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc056c19" class="outline-3">
+<h3 id="orgc056c19"><span class="section-number-3">3.4</span> <a id="org7a07614"></a> Användning</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+Vid start av programmet ska graf-filen anges som
+kommandoradsparameter. Efter start så ska startnod (<i>origin</i>) och
+slutnod (<i>destination</i>) efterfrågas. Om användaren skriver in två
+nodnamn så ska programmet besvara frågan om det finns en väg från
+startnod till slutnod. Om namnen är identiska anses det alltid finnas
+en väg mellan noderna. Om användaren i stället skriver <code>quit</code> så ska
+programmet avslutas. Om felaktiga indata ges ska lämpliga
+felmeddelanden skrivas ut och frågan upprepas.
+</p>
+
+<p>
+Givet filen <code>airmap1.map</code> ovan så ska följande exempelkörning ha
+<b>exakt</b> dessa utskrifter:
+</p>
+<pre class="example">&gt; ./isConnected airmap1.map
+Enter origin and destination (quit to exit): UME GOT
+There is a path from UME to GOT.
+
+Enter origin and destination (quit to exit): UME PJA
+There is no path from UME to PJA.
+
+Enter origin and destination (quit to exit): UME UME
+There is a path from UME to UME.
+
+Enter origin and destination (quit to exit): quit
+Normal exit.
+</pre>
+
+<p>
+Ert program kommer delvis att rättas automatiskt. Det är därför ett
+krav att formatet för utdatat överensstämmer <b>exakt</b> med exemplet
+ovan. Programmet ska skriva ut frågan <code>'Enter origin and destination
+(quit to exit): '</code> (notera det avslutande mellanslaget), läsa in de
+två nodnamnen och sedan skriva ut svaret på om det finns en väg eller
+inte. Svaren ska vara formulerat exakt som i exemplet ovan. Ditt
+inlämnade program får inte skriva ut någon annan text, förutom vid
+felaktig användning då du ska skriva ut felutskrifter.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgccb7081" class="outline-3">
+<h3 id="orgccb7081"><span class="section-number-3">3.5</span> Felkontroller</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+Om kart-filen inte följer specifikationen så ska ett felmeddelande
+skrivas ut och programmet avslutas. Det är speciellt viktigt att ett
+fel i kartfilen inte får programmet att krascha eller fastna i en
+oändlig loop. Däremot behöver t.ex. allokerat minne inte återlämnas.
+Avslut via <code>exit(EXIT_FAILURE)</code> eller <code>return EXIT_FAILURE</code> från
+<code>main()</code> är båda okej.
+</p>
+
+<p>
+Om användaren skriver in noder som inte finns eller använder felaktig
+syntax så ska ett lämpligt felmeddelande skrivas ut och frågan ställas
+på nytt.
+</p>
+</div>
+</div>
+<div id="outline-container-org54b6f93" class="outline-3">
+<h3 id="org54b6f93"><span class="section-number-3">3.6</span> Att tänka på</h3>
+<div class="outline-text-3" id="text-3-6">
+<p>
+<b>Uppgiften kräver planering!</b> Du har stor frihet i hur du konstruerar
+och implementerar grafen. Det innebär också att det finns många olika
+designval att göra, något som kan vara tidsödande. Rapportkravet är
+också relativt omfattande.
+</p>
+
+<p>
+En stark rekommendation är att börja med att bestämma hur du ska
+organisera datat och i vilka datatyper! Grovt sett består
+uppgiften av tre delar:
+</p>
+<ol class="org-ol">
+<li><a id="org7335dec"></a>Inläsning och uppbyggnad av grafen,</li>
+<li><a id="orgca4e154"></a>inläsning av fråga från användaren och</li>
+<li><a id="orgf03b97b"></a>bredden-först-sökning i grafen.</li>
+</ol>
+<p>
+Fokusera på del <a href="#org7335dec">1</a> först, sedan <a href="#orgf03b97b">3</a> och sist <a href="#orgca4e154">2</a>.
+</p>
+
+<p>
+Skriv algoritmer innan du börjar att implementera kod! Annars är
+risken att du slösar bort tid på att implementera en designlösning som
+inte fungerar.
+</p>
+
+<p>
+Problemet består av flera delalgoritmer. Implementera och testa
+delalgoritmerna separat för att verifiera att datatyperna uppför sig
+som du förväntar dig. Testa minnesläckor/-fel för delagoritmerna med
+<code>valgrind</code>.
+</p>
+
+<p>
+Frågor att tänka på:
+</p>
+<ul class="org-ul">
+<li>Hur ska nodnamnen, noder, grafen, representeras? Vilken datatyp har
+ansvar för att avallokera dynamiskt minne? Var tydlig i din design
+om var det ansvaret hamnat.</li>
+<li>Hur ska du hålla reda på om en nod är sedd (<i>seen</i>) av
+bredden-först-algoritmen? Lagra en flagga i varje nod eller separat?</li>
+<li>Hur ska grafen nollställas mellan varje fråga?</li>
+<li>Hanterar din kod frågan startnod==slutnod?</li>
+<li>Hur modifierar du bredden-först-algoritmen från
+föreläsningsanteckningarna till att hitta till slutnoden?</li>
+</ul>
+</div>
+<div id="outline-container-orgae2482c" class="outline-4">
+<h4 id="orgae2482c"><span class="section-number-4">3.6.1</span> Tips</h4>
+<div class="outline-text-4" id="text-3-6-1">
+<ul class="org-ul">
+<li>Vid inläsningen av grafen är det lämpligt att läsa in varje rad till
+en buffert med <code>fgets</code>.</li>
+<li>Det finns <b>mycket hjälp att få</b> från utdelad kod från
+föreläsningarna, t.ex. funktioner för att avgöra om en rad är blank
+eller en kommentarsrad.</li>
+<li>För att tolka nodnamn så är funktionen <code>sscanf</code> användbar (och
+formatsträngen <code>"%s %s"</code> likaså).
+<ul class="org-ul">
+<li>Tänk på att <code>sscanf</code> returnerar antalet lyckade matchningar, något
+som kan underlätta felhanteringen.</li>
+<li><code>scanf</code> -funktionerna tar också formatsträngen <code>"%40s"</code> för att
+begränsa längden på det indata som läses in.</li>
+</ul></li>
+<li>För inläsning av svar från användaren är kombinationen <code>fgets</code> från
+<code>stdin</code> till en buffert och <code>sscanf</code> på nämnda buffert förmodligen
+den bästa lösningen.</li>
+<li>Bryt ner problemet i delproblem och implementera dellösningarna i
+egna funktioner.</li>
+<li>Implementera debug-funktioner som skriver ut innehållet i dina
+datatyper<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> för att kontrollera att din implementation
+uppför sig som du förväntar dig!</li>
+<li>Testa för minnesläckor och -fel på delproblem, t.ex. genom att läsa
+in en liten graf och sedan avallokera den. På så sätt kan du
+upptäcka problem tidigt.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org72f3ebd" class="outline-3">
+<h3 id="org72f3ebd"><span class="section-number-3">3.7</span> Gruppinlämning</h3>
+<div class="outline-text-3" id="text-3-7">
+<p>
+Uppgiften får lösas enskilt, i par eller i grupper om tre personer. Om
+ni väljer att jobba i tre-grupp måste ni implementera <b>två olika</b>
+graf-lösningar (huvudprogrammet ska förstås gå att köra med bägge
+implementationerna). Den ena graf-lösningen ska i så fall använda en
+statisk datatyp (förbindelsematris), den andra ska använda någon
+dynamisk datatyp (finns många alternativ).
+</p>
+</div>
+</div>
+<div id="outline-container-org2e6a9d3" class="outline-3">
+<h3 id="org2e6a9d3"><span class="section-number-3">3.8</span> Övriga/sammanfattande krav på koden</h3>
+<div class="outline-text-3" id="text-3-8">
+<ul class="org-ul">
+<li>Koden ska uppfylla vissa kvalitètskrav. Det innebär bl.a. att
+<ul class="org-ul">
+<li>Koden du skriver ska vara välstrukturerad och välkommenterad,
+inklusive funktions- och filkommentarer.</li>
+<li>Du ska använda lämpliga variabelnamn och se till att koden är bra
+modulariserad.</li>
+<li>Det innebär i sin tur att du inte får använda globala variabler.
+(Det behövs heller inte.)</li>
+</ul></li>
+<li>Implementation av huvudprogrammet och <code>find_path</code> ska finnas i en
+fil med namn <code>is_connected.c</code>.</li>
+<li>Implementationen av grafen ska finnas i en fil med namn <code>graph.c</code>.
+Om ni lämnar in två grafer ska den andra implementationen ligga i en
+fil <code>graph2.c</code>. Alla beskrivna krav för <code>graph.c</code> gäller också för
+<code>graph2.c</code>.</li>
+<li>Dina implementationer ska kompilera utan varningar med flaggorna
+<code>-std=c99 -Wall</code> på datavetenskaps linux-system.</li>
+<li>Din implementation ska sakna minnesfel och minnesläckor (<i>valgrind
+is your friend!</i>).</li>
+<li>Programmet får läsa igenom kartfilen endast en gång. Programmet får
+inte läsa/skriva till några andra filer.</li>
+<li>Programmet ska klara grafer med godtyckligt antal noder (&gt;0) och bågar (&gt;0).</li>
+<li>Programmet ska använda <b>exakt</b> det gränssnitt som beskrivs i sektion
+<a href="#org7a07614">3.4</a>.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc247ff8" class="outline-2">
+<h2 id="orgc247ff8"><span class="section-number-2">4</span> <a id="orgaea355c"></a>Datatypskod ("kodbasen")</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Den givna datatypskoden går att ladda ner från länken
+<i>Filsamling/Datatypskod</i> på kursens hemsida på Cambro. h-filerna med
+deklarationerna för alla datatyperna ligger samlade i mappen
+<code>include</code>. c-filerna med implementationen för en given datatyp ligger
+i separata mappar under <code>src</code>. Exempelvis ligger koden för datatypen
+kö i mappen <code>src/queue</code>.
+</p>
+
+<p>
+För denna uppgift krävs minst v1.0.8.2 av kodbasen.
+</p>
+</div>
+</div>
+<div id="outline-container-org089e824" class="outline-2">
+<h2 id="org089e824"><span class="section-number-2">5</span> <a id="orge92e366"></a>Rapport</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-org059e1dd" class="outline-3">
+<h3 id="org059e1dd"><span class="section-number-3">5.1</span> Innehåll</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+I rapporten till denna obligatoriska uppgift ska du beskriva och
+diskutera hur du valde att konstruera och implementera din graf.
+Rapporten ska vara så skriven att en läsare inte behöver ha läst denna
+specifikation i detalj. Du behöver alltså ha någon form av
+introduktion som sätter in läsaren (tänk: din framtida chef eller
+kollega!) i ett sammanhang. Rapporten ska också vara skriven så att
+man förstår din implementation utan att läsa koden. Du behöver också
+bl.a. göra en användarhandledning till en tänkt användare av
+programmet.
+</p>
+
+<p>
+Rapporten ska bl.a. innehålla/besvara följande frågor:
+</p>
+<ul class="org-ul">
+<li>En beskrivning av hur du valt att konstruera din graf; vilka
+datatyper du valt, hur de är organiserade, hur ansvaret för att
+avallokera dynamiskt minne är fördelat, m.m.</li>
+<li>En bra beskrivning av hur alla relevanta delar av dina graf
+fungerar, t.ex. <code>graph_neighbours</code> (funktionen som returnerar
+grannarna till en given nod).</li>
+<li>Testkörningar som du har gjort ska dokumenteras.</li>
+<li>Reflektera över ditt arbete med laborationen. Vad var lätt, vad var
+svårt, hur löste du de problem som dök upp? Har du synpunkter på
+själva uppgiften?</li>
+<li>Om ni fler än en som gjort laborationen gemensamt så ska rapporten
+ha en sektion som beskriver arbetsfördelningen.</li>
+<li>Ange referenser till de material du använt för att lösa laborationen
+i din rapport. För exempel på hur man skriver referenser se
+<a href="http://www.ub.umu.se/skriva/skriva-referenser">http://www.ub.umu.se/skriva/skriva-referenser</a> eller
+<a href="http://www8.cs.umu.se/education/examina/InternetCite/citera.htm">http://www8.cs.umu.se/education/examina/InternetCite/citera.htm</a>.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org56f0565" class="outline-3">
+<h3 id="org56f0565"><span class="section-number-3">5.2</span> Organisation</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+Denna rapport är av en annan karaktär än de tidigare. För denna
+uppgift så är beskrivningen av algoritmer och datatyper som används i
+lösningen centrala. Rapporten ska ha vettiga rubriker. Sidor och
+rubriker ska vara numrerade. Ett exempel på lämpliga rubriker i
+rapporten är:
+</p>
+
+<ul class="org-ul">
+<li>Introduktion
+<ul class="org-ul">
+<li>Bakgrund inkl. problembeskrivning.</li>
+</ul></li>
+<li>Användarhandledning
+<ul class="org-ul">
+<li>För den oinsatte användaren.</li>
+<li>Krav på indata (kartfil och inmatning).</li>
+<li>Förväntningar som användaren kan ha på utdata.</li>
+<li>Något exempel på en körning för att underlätta för den oinsatte användaren</li>
+</ul></li>
+<li>Systembeskrivning
+<ul class="org-ul">
+<li>Beskrivning av hur grafen representeras i programmet.
+<ul class="org-ul">
+<li>Beskrivning av vilka funktioner i gränssnittet som är implementerade.</li>
+</ul></li>
+<li>Beskrivning av övriga datatyper centrala för lösningen, inkl. gränsyta.</li>
+<li>Beskrivning av övriga komponenterna i lösningen (funktioner) samt
+informationsflödet mellan dessa.</li>
+</ul></li>
+<li>Algoritmbeskrivning (ev. som underrubrik till systembeskrivningen)
+<ul class="org-ul">
+<li>Beskrivning av de algoritmer som är centrala för programmet.</li>
+</ul></li>
+<li>Testkörningar
+<ul class="org-ul">
+<li>Testkörningar gjorda för att verifiera en korrekt implementation.</li>
+</ul></li>
+<li>Arbetsfördelning</li>
+<li>Reflektioner</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb43f6e0" class="outline-2">
+<h2 id="orgb43f6e0"><span class="section-number-2">6</span> <a id="org7ec61fb"></a>Inlämning</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li>Ni ska implementera lösningen som beskriv i sektion <a href="#org6e824a0">3</a>.</li>
+<li>Uppgiften ska lösas <b>enskilt eller i grupper om max 3 personer</b>. I
+all fall gäller att alla ska kunna redogöra i detalj för varje del
+i lösningen, kunna motivera designval, osv.</li>
+<li>Inlämningen ska ske i labres via denna <a href="https://webapps.cs.umu.se/labresults/v2/handin.php?courseid=429">länk</a>. Ni gör en inlämning
+per grupp. <b>Se till att alla era användarnamn inkluderas i vid
+gruppinlämningen.</b></li>
+<li><b>Deadline</b> för inlämningarna finns under Examination i Cambro.</li>
+<li>Koden ska lämnas in i form av två filer med namnen <b><code>graph.c</code></b> och
+<b><code>is_connected.c</code></b>. Lämnar ni in i tre-grupp ska dessutom en fil
+<b><code>graph2.c</code></b> lämnas in.</li>
+<li>Ni ska också lämna in en skriftlig <b>rapport</b> (en per grupp).
+<ul class="org-ul">
+<li>Rapporten ska vara i <b>pdf-format</b> och heta <code>rapport_ou5.pdf</code>.</li>
+<li>Första sidan ska ha följande innehåll:
+<ul class="org-ul">
+<li>Kursnamnet "Datastrukturer och algoritmer 5DV149".</li>
+<li>Nummer på den obligatoriska uppgiften.</li>
+<li>Ert (era) namn.</li>
+<li>Ert (era) CS-användarnamn.</li>
+<li>Datum för inlämning.</li>
+<li>Versionsnummer (1.0 för första inlämningen, 2.0 för andra, osv.).</li>
+</ul></li>
+<li>I övrigt enligt sektion <a href="#orge92e366">5</a> ovan.</li>
+</ul></li>
+<li>Om inlämningen är en komplettering av en tidigare inlämning:
+<ol class="org-ol">
+<li>En fil <code>changes.txt</code> ska lämnas in och beskriva vilka
+förändringar ni gjort i koden och/eller rapporten.</li>
+<li>En sektion av rapporten ska beskriva samma sak.</li>
+</ol></li>
+<li>Ladda endast upp filerna <b><code>graph.c</code></b>, <b><code>is_connected.c</code></b>,
+<b><code>rapport_ou5.pdf</code></b> och ev. <b><code>graph2.c</code></b> och <b><code>changes.txt</code></b>.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org23cf2bf" class="outline-2">
+<h2 id="org23cf2bf"><span class="section-number-2">7</span> Bedömning</h2>
+<div class="outline-text-2" id="text-7">
+</div>
+<div id="outline-container-orgf49966e" class="outline-3">
+<h3 id="orgf49966e"><span class="section-number-3">7.1</span> Bedömningsmall</h3>
+<div class="outline-text-3" id="text-7-1">
+<p>
+Vi kommer att rätta er kod automatiskt vid inlämningen. Dessutom
+kommer vi att bedöma rapport och kod-kvalitén enligt bedömningsmallen
+nedan.
+</p>
+
+<table rules="groups" frame="hsides" cellspacing="0" cellpadding="6" border="2">
+
+
+<colgroup>
+<col class="org-left">
+</colgroup>
+
+<colgroup>
+<col class="org-left">
+</colgroup>
+
+<colgroup>
+<col class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Nr</th>
+<th scope="col" class="org-left">Punkt</th>
+<th scope="col" class="org-left">Godkänd?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">1</td>
+<td class="org-left">Inlämningen är enligt specifikation.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">2</td>
+<td class="org-left">Koden kompilerar utan varningar.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">3</td>
+<td class="org-left">Dynamisk minneshantering</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">3.1</td>
+<td class="org-left">Koden saknar minnesfel och -läckor.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">3.2</td>
+<td class="org-left">Programmet använder <code>dlist_kill()</code> enligt specifikation.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">4</td>
+<td class="org-left">Användning</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">4.1</td>
+<td class="org-left">Programmet fungerar med korrekt kartfil och indata från specifikationen.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">4.2</td>
+<td class="org-left">Programmet fungerar med korrekt kartfil och upprepade frågor.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">4.3</td>
+<td class="org-left">Programmet fungerar med korrekt riktad kartfil och upprepade frågor.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">4.4</td>
+<td class="org-left">Programmet fungerar med kartfil med gränsfall i antal noder och/eller bågar.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">4.5</td>
+<td class="org-left">Programmet fungerar med alla testade kartfiler.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">4.6</td>
+<td class="org-left">Programmet avbryts med felmeddelande och EXIT<sub>FAILURE</sub> för felaktig kartfil.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">4.7</td>
+<td class="org-left">Programmet avbryts med felmeddelande och EXIT<sub>FAILURE</sub> för saknad kartfil.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">4.8</td>
+<td class="org-left">Programmet hanterar felaktig frågeinmatning på rimligt sätt.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">4.9</td>
+<td class="org-left">Programmet hanterar specialfallet startnod=slutnod korrekt.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">4.10</td>
+<td class="org-left">Textutskrifterna är enligt specifikation.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">5</td>
+<td class="org-left">Kodkvalité</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">5.1</td>
+<td class="org-left">Koden följer kraven i specifikationen.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">5.2</td>
+<td class="org-left">Koden är vettigt indenterad.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">5.3</td>
+<td class="org-left">Radlängden överstiger ej 120 tecken.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">5.4</td>
+<td class="org-left">Filkommentar med korrekt innehåll finns i början av varje inlämnad kodfil.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">5.5</td>
+<td class="org-left">Funktionskommentarer finns före varje funktion.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">5.6</td>
+<td class="org-left">Koden är rimligt kommenterad.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">5.7</td>
+<td class="org-left">Namngivning av variabler, funktioner, m.m. är konsistent och ändamålsenlig.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">5.8</td>
+<td class="org-left">Koden är välstrukturerad och har t.ex. inga globala variabler.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">6</td>
+<td class="org-left">Rapport</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">6.1</td>
+<td class="org-left">Framsidan följer specifikationen.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">6.2</td>
+<td class="org-left">Rapporten har en innehållsförteckning.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">6.3</td>
+<td class="org-left">Rapporten är indelad i sektioner med numrerade rubriker.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">6.4</td>
+<td class="org-left">Sidorna är numrerade.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">6.5</td>
+<td class="org-left">Introduktionen och problembeskrivningen är acceptabel.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">6.6</td>
+<td class="org-left">Användarhandledning inkl. exempel finns och fyller sitt syfte.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">6.7</td>
+<td class="org-left">Beskrivningen av hur grafen är representerad fyller sitt syfte.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">6.8</td>
+<td class="org-left">Beskrivningen av vilka funktioner i grafen gränssnitt som är implementerade finns.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">6.9</td>
+<td class="org-left">Beskrivningen av övriga datatyper finns, inkl. gränsyta.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">6.10</td>
+<td class="org-left">Beskrivning av informationsflödet mellan de centrala funktionerna finns.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">6.11</td>
+<td class="org-left">Algoritmbeskrivningar finns för de centrala algoritmerna.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">6.12</td>
+<td class="org-left">Testkörningar är dokumenterade.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">6.13</td>
+<td class="org-left">Arbetsfördelningen är beskriven och acceptabel.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-left">6.14</td>
+<td class="org-left">Reflektionerna är rimligt omfattande.</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org6f94143" class="outline-3">
+<h3 id="org6f94143"><span class="section-number-3">7.2</span> Betyg</h3>
+<div class="outline-text-3" id="text-7-2">
+<p>
+Ni kan bl.a. få följande betyg på denna lab:
+</p>
+<ul class="org-ul">
+<li><b>G</b>: Godkänt. Grattis! Läs igenom återkopplingen. Den kan innehålla
+viktig information.</li>
+<li><b>K</b>: Kommentar. Skicka ett mail med <i>exakt</i> följande ärenderad
+<b><code>"5DV149 LP3: Återkoppling OU5"</code></b> till den handledare som rättat din
+lab. Se till att ditt <b>användarnamn</b> finns med i mailet.
+Bemöt/kommentera alla punkter som inte är godkända nedan och visa
+att du förstått återkopplingen. Om handledaren är nöjd med svaret
+kommer hen att ändra ditt betyg till G. <i>Bevaka att detta sker!</i>
+Annars kan du behöva göra om labben nästa år.</li>
+<li><b>O</b>: Ofullständigt. Läs igenom kommentarerna och åtgärda det som
+behöver åtgärdas. Notera speciellt alla punkter som ej är markerade
+som godkända. Lämna in senast vid nästa inlämningstillfälle. Din nya
+inlämning kommer att bedömas på nytt efter nästa
+inlämningstillfälle.</li>
+<li><b>U</b>: Underkänt. Du har blivit underkänd på denna laboration vid
+detta kurstillfälle. Nästa tillfälle att klara av detta moment är
+när kursen ges nästa gång, troligtvis nästa år.</li>
+</ul>
+
+<p>
+En laboration som har betyget K eller O efter det tredje
+bedömningstillfället får automatiskt betyget U. <i>Det är därför viktigt att ni bevakar att t.ex. betyget K ändras till G när ni skickat in ett
+mail.</i>
+</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+Eller använd dig av <code>print</code> -funktionerna i respektive datatyp.
+</p></div></div>
+
+
+</div>
+</div></div>
+
+
+</body></html>
