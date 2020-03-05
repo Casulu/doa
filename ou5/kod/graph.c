@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "graph.h"
 #include "array_1d.h"
+#include "dlist.h"
 
 /*
  * Declaration of a generic graph for the "Datastructures and
@@ -31,11 +32,13 @@
 // ====================== PUBLIC DATA TYPES ==========================
 
 struct node {
-	
+	dlist *neighbours;
+	bool seen;
 };
 
 struct graph{
-	
+	array_1d *nodes;
+	int numNodes;
 };
 
 // =================== NODE COMPARISON FUNCTION ======================
@@ -61,7 +64,13 @@ bool nodes_are_equal(const node *n1,const node *n2)
  *
  * Returns: A pointer to the new graph.
  */
-graph *graph_empty(int max_nodes);
+graph *graph_empty(int max_nodes)
+{
+	graph *g = calloc(1, sizeof(graph));
+	g->numNodes = 0;
+	g->nodes = array_1d_create(0, max_nodes, NULL);
+	return g;
+}
 
 /**
  * graph_is_empty() - Check if a graph is empty, i.e. has no nodes.
