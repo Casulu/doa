@@ -1,7 +1,8 @@
 #include <stdbool.h>
 #include <stdlib.h>
-#include "graph.h"
+#include <string.h>
 #include "array_1d.h"
+#include "graph.h"
 #include "dlist.h"
 
 /*
@@ -33,12 +34,14 @@
 
 struct node {
 	dlist *neighbours;
+	char *label;
 	bool seen;
 };
 
 struct graph{
 	array_1d *nodes;
 	int numNodes;
+	int numNeighbours;
 };
 
 // =================== NODE COMPARISON FUNCTION ======================
@@ -53,7 +56,12 @@ struct graph{
  */
 bool nodes_are_equal(const node *n1,const node *n2)
 {
-	return true;
+	if(strcmp(n1->label, n2->label) == 0){
+	    return true;
+	}
+	else{
+        return false;
+	}
 }
 
 // =================== GRAPH STRUCTURE INTERFACE ======================
@@ -78,7 +86,10 @@ graph *graph_empty(int max_nodes)
  *
  * Returns: True if graph is empty, otherwise false.
  */
-bool graph_is_empty(const graph *g);
+bool graph_is_empty(const graph *g)
+{
+	return array_1d_inspect_value(g->nodes, 0) == NULL;
+}
 
 /**
  * graph_has_edges() - Check if a graph has any edges.
@@ -86,7 +97,17 @@ bool graph_is_empty(const graph *g);
  *
  * Returns: True if graph has any edges, otherwise false.
  */
-bool graph_has_edges(const graph *g);
+bool graph_has_edges(const graph *g)
+{
+//    for (int i = 0; i < g->numNodes; ++i) {
+//        node *currNode = array_1d_inspect_value(g->nodes, i);
+//        if(dlist_is_empty(currNode->neighbours)){
+//            return false;
+//        }
+//    }
+//    return true;
+    return g->numNeighbours == 0;
+}
 
 /**
  * graph_insert_node() - Inserts a node with the given name into the graph.
@@ -98,7 +119,16 @@ bool graph_has_edges(const graph *g);
  *
  * Returns: The modified graph.
  */
-graph *graph_insert_node(graph *g, const char *s);
+graph *graph_insert_node(graph *g, const char *s)
+{
+    node *n = malloc(sizeof(*n));
+    n->seen = false;
+    n->label = s;
+    n->neighbours = dlist_empty(NULL);
+    array_1d_set_value(g->nodes, n, g->numNodes);
+    g->numNodes++;
+    return g;
+}
 
 /**
  * graph_find_node() - Find a node stored in the graph.
@@ -107,7 +137,16 @@ graph *graph_insert_node(graph *g, const char *s);
  *
  * Returns: A pointer to the found node, or NULL.
  */
-node *graph_find_node(const graph *g, const char *s);
+node *graph_find_node(const graph *g, const char *s)
+{
+    for (int i = 0; i < g->numNodes; ++i) {
+        node *currNode = array_1d_inspect_value(g->nodes, i);
+        if(strcmp(s, currNode->label) == 0){
+            return currNode;
+        }
+    }
+    return NULL;
+}
 
 /**
  * graph_node_is_seen() - Return the seen status for a node.
@@ -116,7 +155,10 @@ node *graph_find_node(const graph *g, const char *s);
  *
  * Returns: The seen status for the node.
  */
-bool graph_node_is_seen(const graph *g, const node *n);
+bool graph_node_is_seen(const graph *g, const node *n)
+{
+    return n->seen;
+}
 
 /**
  * graph_node_set_seen() - Set the seen status for a node.
@@ -126,7 +168,11 @@ bool graph_node_is_seen(const graph *g, const node *n);
  *
  * Returns: The modified graph.
  */
-graph *graph_node_set_seen(graph *g, node *n, bool seen);
+graph *graph_node_set_seen(graph *g, node *n, bool seen)
+{
+    n->seen = seen;
+    return g;
+}
 
 /**
  * graph_reset_seen() - Reset the seen status on all nodes in the graph.
@@ -134,7 +180,14 @@ graph *graph_node_set_seen(graph *g, node *n, bool seen);
  *
  * Returns: The modified graph.
  */
-graph *graph_reset_seen(graph *g);
+graph *graph_reset_seen(graph *g)
+{
+    for (int i = 0; i < g->numNodes; ++i) {
+        node *currNode = array_1d_inspect_value(g->nodes, i);
+        currNode->seen = false;
+    }
+    return g;
+}
 
 /**
  * graph_insert_edge() - Insert an edge into the graph.
@@ -146,7 +199,12 @@ graph *graph_reset_seen(graph *g);
  *
  * Returns: The modified graph.
  */
-graph *graph_insert_edge(graph *g, node *n1, node *n2);
+graph *graph_insert_edge(graph *g, node *n1, node *n2)
+{
+    dlist_insert(n1->neighbours, n2, dlist_first(n1->neighbours));
+    g->numNeighbours++;
+    return g;
+}
 
 /**
  * graph_choose_node() - Return an arbitrary node from the graph.
@@ -156,7 +214,10 @@ graph *graph_insert_edge(graph *g, node *n1, node *n2);
  *
  * NOTE: The return value is undefined for an empty graph.
  */
-node *graph_choose_node(const graph *g);
+node *graph_choose_node(const graph *g)
+{
+    return array_1d_inspect_value(g->nodes, g->numNodes);
+}
 
 /**
  * graph_neighbours() - Return a list of neighbour nodes.
@@ -166,7 +227,10 @@ node *graph_choose_node(const graph *g);
  * Returns: A pointer to a list of nodes. Note: The list must be
  * dlist_kill()-ed after use.
  */
-dlist *graph_neighbours(const graph *g,const node *n);
+dlist *graph_neighbours(const graph *g,const node *n)
+{
+    return n->neighbours;
+}
 
 /**
  * graph_kill() - Destroy a given graph.
@@ -176,4 +240,13 @@ dlist *graph_neighbours(const graph *g,const node *n);
  *
  * Returns: Nothing.
  */
-void graph_kill(graph *g);
+void graph_kill(graph *g)
+{
+    for (int i = g->numNodes; i >= 0; i--) {
+        node *currNode = array_1d_inspect_value(g->nodes, i);
+        dlist_kill(currNode->neighbours);
+        free(currNode);
+    }
+    array_1d_kill(g->nodes);
+    free(g);
+}

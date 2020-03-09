@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/kod.dir/graph.c.o CMakeFiles/kod.dir/is_connected.c.o CMakeFiles/kod.dir/home/rasmus/doa/datastructures-v1.0.8.2/src/array_1d/array_1d.c.o CMakeFiles/kod.dir/home/rasmus/doa/datastructures-v1.0.8.2/src/dlist/dlist.c.o  -o kod 

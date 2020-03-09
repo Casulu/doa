@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../../../datastructures-v1.0.8.2/include/dlist.h
+stdbool.h
+-
+util.h
+../../../datastructures-v1.0.8.2/include/util.h
+
+../../../datastructures-v1.0.8.2/include/graph.h
+stdbool.h
+-
+util.h
+../../../datastructures-v1.0.8.2/include/util.h
+dlist.h
+../../../datastructures-v1.0.8.2/include/dlist.h
+
+../../../datastructures-v1.0.8.2/include/util.h
+
+/home/rasmus/doa/ou5/kod/is_connected.c
+stdbool.h
+-
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+errno.h
+-
+graph.h
+/home/rasmus/doa/ou5/kod/graph.h
+dlist.h
+/home/rasmus/doa/ou5/kod/dlist.h
+

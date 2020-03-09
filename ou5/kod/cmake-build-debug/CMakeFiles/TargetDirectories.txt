@@ -1,0 +1,3 @@
+/home/rasmus/doa/ou5/kod/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/rasmus/doa/ou5/kod/cmake-build-debug/CMakeFiles/kod.dir
+/home/rasmus/doa/ou5/kod/cmake-build-debug/CMakeFiles/edit_cache.dir
