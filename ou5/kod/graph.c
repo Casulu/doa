@@ -229,7 +229,12 @@ node *graph_choose_node(const graph *g)
  */
 dlist *graph_neighbours(const graph *g,const node *n)
 {
-    return n->neighbours;
+    dlist *out = dlist_empty(NULL);
+    dlist_pos pos = dlist_first(n->neighbours);
+    while(!dlist_is_end(n->neighbours, pos)){
+        dlist_insert(out, dlist_inspect(n->neighbours, pos), pos);
+    }
+    return out;
 }
 
 /**
