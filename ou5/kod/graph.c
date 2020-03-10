@@ -121,9 +121,12 @@ bool graph_has_edges(const graph *g)
  */
 graph *graph_insert_node(graph *g, const char *s)
 {
+    char *label = malloc(sizeof(*label) * (strlen(s) + 1));
+    strcpy(label, s);
     node *n = malloc(sizeof(*n));
+
     n->seen = false;
-    n->label = s;
+    n->label = label;
     n->neighbours = dlist_empty(NULL);
     array_1d_set_value(g->nodes, n, g->numNodes);
     g->numNodes++;

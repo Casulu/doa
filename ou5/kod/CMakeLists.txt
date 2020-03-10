@@ -10,4 +10,5 @@ add_executable(kod
         is_connected.c
         ../../datastructures-v1.0.8.2/src/array_1d/array_1d.c
         ../../datastructures-v1.0.8.2/src/dlist/dlist.c
+        ../../ou4/kod/arraytable.c
         )
