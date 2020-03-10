@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include "array_1d.h"
 #include "graph.h"
 #include "dlist.h"
@@ -121,12 +122,10 @@ bool graph_has_edges(const graph *g)
  */
 graph *graph_insert_node(graph *g, const char *s)
 {
-    char *label = malloc(sizeof(*label) * (strlen(s) + 1));
-    strcpy(label, s);
     node *n = malloc(sizeof(*n));
 
     n->seen = false;
-    n->label = label;
+    n->label = s;
     n->neighbours = dlist_empty(NULL);
     array_1d_set_value(g->nodes, n, g->numNodes);
     g->numNodes++;
@@ -206,6 +205,12 @@ graph *graph_insert_edge(graph *g, node *n1, node *n2)
 {
     dlist_insert(n1->neighbours, n2, dlist_first(n1->neighbours));
     g->numNeighbours++;
+//    dlist_pos pos = dlist_first(n1->neighbours);
+//    while(!dlist_is_end(n1->neighbours, pos)){
+//        node *n = (node*)dlist_inspect(n1->neighbours, pos);
+//        printf("%s\n", n->label);
+//        pos = dlist_next(n1->neighbours, pos);
+//    }
     return g;
 }
 
@@ -219,7 +224,7 @@ graph *graph_insert_edge(graph *g, node *n1, node *n2)
  */
 node *graph_choose_node(const graph *g)
 {
-    return array_1d_inspect_value(g->nodes, g->numNodes);
+    return array_1d_inspect_value(g->nodes, g->numNodes - 1);
 }
 
 /**

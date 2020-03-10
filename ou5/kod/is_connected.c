@@ -127,7 +127,7 @@ array_1d *cleanFile(FILE *map)
     }
 
 
-    cleanMap = array_1d_create(0, n, NULL);
+    cleanMap = array_1d_create(0, n, free);
     array_1d_set_value(cleanMap, malloc(sizeof(char) * MAX_LINE_LENGTH), 0);
     sprintf(array_1d_inspect_value(cleanMap, 0), "%d", n);
     int n1Length;
@@ -203,17 +203,22 @@ array_1d *getLabels(const array_1d *cleanMap)
         if(!lbl1Exists){
             array_1d_set_value(labels, lbl1, firstFreeIndex);
             firstFreeIndex++;
-        } else{
-            free(lbl1);
         }
-        if(!lbl2Exists){
+        if(!lbl2Exists && strcmp(lbl1, lbl2) != 0){
             array_1d_set_value(labels, lbl2, firstFreeIndex);
             firstFreeIndex++;
         } else {
             free(lbl2);
         }
+        if(lbl1Exists){
+            free(lbl1);
+        }
     }
     array_1d_set_value(labels, NULL, firstFreeIndex);
+    //for (int j = 0; j < firstFreeIndex; ++j) {
+    //    printf("%s ", array_1d_inspect_value(labels, j));
+    //}
+    //putchar('\n');
     return labels;
 }
 
@@ -238,9 +243,11 @@ graph *addEdges(graph *g, const array_1d *cleanMap){
         node *n1 = graph_find_node(g, lbl1);
         node *n2 = graph_find_node(g, lbl2);
 
+        //printf("%s\n", lbl1);
         if(!nodes_are_equal(n1, n2)){
             graph_insert_edge(g, n1, n2);
         }
+        //printf("\n");
 
     }
     return g;
@@ -250,34 +257,34 @@ table *getMatrix(graph *g, const array_1d *labels)
 {
     table *output = table_empty(compTuple , free, free);
     bool lblFound;
-    int j;
+    int j = 0;
     int i = 0;
 
-    while(array_1d_inspect_value(labels, i) != NULL) {
-        node *currNode = graph_find_node(g, array_1d_inspect_value(labels, i));
+    while(array_1d_inspect_value(labels, j) != NULL) {
+        node *currNode = graph_find_node(g, array_1d_inspect_value(labels, j));
         dlist *currNeighbours = graph_neighbours(g, currNode);
         dlist_pos pos = dlist_first(currNeighbours);
 
         array_1d *tuple = array_1d_create(0, 1, free);
-        int *pi = calloc(sizeof(int), 1);
-        *pi = i;
+        int *pj = calloc(sizeof(int), 1);
+        *pj = j;
 
-        array_1d_set_value(tuple, pi, 0);
-        array_1d_set_value(tuple, pi, 1);
+        array_1d_set_value(tuple, pj, 0);
+        array_1d_set_value(tuple, pj, 1);
         int *neighbour = calloc(sizeof(int), 1);
         *neighbour = 1;
         table_insert(output, tuple, neighbour);
 
 
         while(!dlist_is_end(currNeighbours, pos)){
-            j = 0;
+            i = 0;
             lblFound = false;
 
-            while(array_1d_inspect_value(labels, j) != NULL && !lblFound){
-                if(nodes_are_equal(graph_find_node(g, array_1d_inspect_value(labels, j)), dlist_inspect(currNeighbours, pos))){
+            while(array_1d_inspect_value(labels, i) != NULL && !lblFound){
+                if(nodes_are_equal(graph_find_node(g, array_1d_inspect_value(labels, i)), dlist_inspect(currNeighbours, pos))){
                     lblFound = true;
                 } else{
-                    j++;
+                    i++;
                 }
             }
 
@@ -295,7 +302,7 @@ table *getMatrix(graph *g, const array_1d *labels)
             pos = dlist_next(currNeighbours, pos);
         }
         dlist_kill(currNeighbours);
-        i++;
+        j++;
     }
 
     return output;
@@ -327,34 +334,40 @@ int main(int argc, char *argv[]){
     g = addNodes(g, labels);
     g = addEdges(g, cleanMap);
     table *matrix = getMatrix(g, labels);
-    int i = 0;
-    int j = 0;
-
-    printf("   ");
-    while(array_1d_inspect_value(labels, i) != NULL){
-        printf("%s ", (char*)array_1d_inspect_value(labels, i));
-        i++;
+//    int i = 0;
+//    int j = 0;
+//
+//    printf("   ");
+//    while(array_1d_inspect_value(labels, i) != NULL){
+//        printf("%s ", (char*)array_1d_inspect_value(labels, i));
+//        i++;
+//    }
+//    printf("\n");
+//    i = 0;
+//    while(array_1d_inspect_value(labels, i) != NULL){
+//        printf("%s ", (char*)array_1d_inspect_value(labels, i));
+//        j = 0;
+//        while(array_1d_inspect_value(labels, j) != NULL){
+//            int *matrixValue = (int*)tupleLookup(matrix, i, j);
+//            if(matrixValue != NULL){
+//                printf("%d   ", *(int*)matrixValue);
+//            } else{
+//                printf("%d   ", 0);
+//            }
+//            j++;
+//        }
+//        printf("\n");
+//        i++;
+//    }
+    int k = 0;
+    char *killLabel = (char*)array_1d_inspect_value(labels, k);
+    while(killLabel != NULL){
+        free(killLabel);
+        killLabel = (char*)array_1d_inspect_value(labels, k);
     }
-    printf("\n");
-    i = 0;
-    while(array_1d_inspect_value(labels, i) != NULL){
-        printf("%s ", (char*)array_1d_inspect_value(labels, i));
-        j = 0;
-        while(array_1d_inspect_value(labels, j) != NULL){
-            int *matrixValue = (int*)tupleLookup(matrix, i, j);
-            if(matrixValue != NULL){
-                printf("%d   ", *(int*)matrixValue);
-            } else{
-                printf("%d   ", 0);
-            }
-            j++;
-        }
-        printf("\n");
-        i++;
-    }
-
-    //printf("%d, %s %s", *(int*)tupleLookup(matrix, 0, 2), (char*)array_1d_inspect_value(labels, 0), (char*)array_1d_inspect_value(labels, 2));
-
+    graph_kill(g);
+    array_1d_kill(cleanMap);
+    table_kill(matrix);
     return 0;
 }
 
