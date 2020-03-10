@@ -276,8 +276,9 @@ table *getMatrix(graph *g, const array_1d *labels)
             while(array_1d_inspect_value(labels, j) != NULL && !lblFound){
                 if(nodes_are_equal(graph_find_node(g, array_1d_inspect_value(labels, j)), dlist_inspect(currNeighbours, pos))){
                     lblFound = true;
+                } else{
+                    j++;
                 }
-                j++;
             }
 
             array_1d *tuple = array_1d_create(0, 1, free);
@@ -293,6 +294,7 @@ table *getMatrix(graph *g, const array_1d *labels)
             table_insert(output, tuple, neighbour);
             pos = dlist_next(currNeighbours, pos);
         }
+        dlist_kill(currNeighbours);
         i++;
     }
 
@@ -330,13 +332,13 @@ int main(int argc, char *argv[]){
 
     printf("   ");
     while(array_1d_inspect_value(labels, i) != NULL){
-        printf("%s ", array_1d_inspect_value(labels, i));
+        printf("%s ", (char*)array_1d_inspect_value(labels, i));
         i++;
     }
     printf("\n");
     i = 0;
     while(array_1d_inspect_value(labels, i) != NULL){
-        printf("%s ", array_1d_inspect_value(labels, i));
+        printf("%s ", (char*)array_1d_inspect_value(labels, i));
         j = 0;
         while(array_1d_inspect_value(labels, j) != NULL){
             int *matrixValue = (int*)tupleLookup(matrix, i, j);
