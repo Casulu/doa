@@ -235,7 +235,8 @@ dlist *graph_neighbours(const graph *g,const node *n)
     dlist *out = dlist_empty(NULL);
     dlist_pos pos = dlist_first(n->neighbours);
     while(!dlist_is_end(n->neighbours, pos)){
-        dlist_insert(out, dlist_inspect(n->neighbours, pos), pos);
+        dlist_insert(out, dlist_inspect(n->neighbours, pos), dlist_first(out));
+        pos = dlist_next(n->neighbours, pos);
     }
     return out;
 }
