@@ -104,12 +104,12 @@ array_1d *cleanFile(FILE *map)
     bool reachedEdge = false;
     int n = 0;
 
-    while(fgets(lineBuffer, MAX_LINE_LENGTH, map) && !numIsRead){
+    while(!numIsRead && fgets(lineBuffer, MAX_LINE_LENGTH, map)){
         if(!line_is_blank(lineBuffer) && !line_is_comment(lineBuffer)){
             numIsRead = true;
             bool badLine = false;
             int start = first_non_white_space(lineBuffer);
-            for (int i = 0; i < firstCommentSign(lineBuffer); ++i) {
+            for (int i = 0; i <= firstCommentSign(lineBuffer); ++i) {
                 if(!isdigit(lineBuffer[start])){
                    badLine = true;
                 }
@@ -121,13 +121,17 @@ array_1d *cleanFile(FILE *map)
             }
         }
     }
+
+
     output = array_1d_create(0, n, NULL);
     array_1d_set_value(output, malloc(sizeof(char) * MAX_LINE_LENGTH), 0);
     sprintf(array_1d_inspect_value(output, 0), "%d", n);
+    int n1Length;
+
     for (int i = 1; i < n + 1; ++i) {
         reachedEdge = false;
         array_1d_set_value(output, malloc(82 * sizeof(char)), i);
-        while(fgets(lineBuffer, MAX_LINE_LENGTH, map) && !reachedEdge){
+        while(!reachedEdge && fgets(lineBuffer, MAX_LINE_LENGTH, map)){
             if(!line_is_blank(lineBuffer) && !line_is_comment(lineBuffer)){
                 reachedEdge = true;
             }
@@ -136,19 +140,26 @@ array_1d *cleanFile(FILE *map)
         if(reachedEdge) {
             int start = first_non_white_space(lineBuffer);
             int j = 0;
-            while (lineBuffer[j + start] && !isspace(lineBuffer[j + start])) {
+            while (lineBuffer[j + start] && !isspace(lineBuffer[j + start]) && j <= 39) {
                 ((char*)array_1d_inspect_value(output, i))[j] = lineBuffer[j + start];
                 j++;
             }
+            if(j > 39){
+                break;
+            }
+            n1Length = j + 1;
             while (isspace(lineBuffer[j + start])) {
                 start++;
             }
             start--;
             ((char*)array_1d_inspect_value(output, i))[j] = ',';
             j++;
-            while (lineBuffer[j + start] && !isspace(lineBuffer[j + start]) && lineBuffer[j + start] != '#') {
+            while (lineBuffer[j + start] && !isspace(lineBuffer[j + start]) && lineBuffer[j + start] != '#' && j <= 78 - n1Length -1) {
                 ((char*)array_1d_inspect_value(output, i))[j] = lineBuffer[j + start];
                 j++;
+            }
+            if(j > 39){
+                break;
             }
             ((char*)array_1d_inspect_value(output, i))[j] = '\0';
         }
@@ -168,10 +179,10 @@ array_1d *getLabels(const array_1d *cleanMap)
     for (int i = 1; i < atoi(array_1d_inspect_value(cleanMap, 0)) + 1; ++i) {
         char *lbl1 = calloc(sizeof(char) , 41);
         char *lbl2 = calloc(sizeof(char), 41);
-        lbl1 = strtok(array_1d_inspect_value(cleanMap, i), token);
-        lbl2 = strtok(NULL, token);
+        strcpy(lbl1, strtok(array_1d_inspect_value(cleanMap, i), token));
+        strcpy(lbl2, strtok(NULL, token));
         //sscanf((char*)array_1d_inspect_value(cleanMap, i), "%s,%s", lbl1, lbl2);
-        for (int j = 0; j < firstFreeIndex; ++j) {
+        for (int j = 0; j < firstFreeIndex && (!lbl1Exists || !lbl2Exists); ++j) {
             if(strcmp(array_1d_inspect_value(labels, j), lbl1) == 0){
                 lbl1Exists = true;
             }
