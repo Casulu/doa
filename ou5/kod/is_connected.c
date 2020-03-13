@@ -177,12 +177,12 @@ array_1d *cleanFile(FILE *map)
 
 array_1d *getLabels(const array_1d *cleanMap)
 {
-    array_1d *labels = array_1d_create(0, atoi(array_1d_inspect_value(cleanMap, 0)) + 1, NULL);
+    array_1d *labels = array_1d_create(0, 2 * (atoi(array_1d_inspect_value(cleanMap, 0)) - 1), NULL);
     int firstFreeIndex = 0;
     bool lbl1Exists;
     bool lbl2Exists;
 
-    for (int i = 1; i < atoi(array_1d_inspect_value(cleanMap, 0)) + 1; ++i) {
+    for (int i = 1; i < array_1d_high(labels); ++i) {
         char *lbl1 = calloc(sizeof(char) , 41);
         char *lbl2 = calloc(sizeof(char), 41);
         char *currLine = array_1d_inspect_value(cleanMap, i);
@@ -364,6 +364,7 @@ int main(int argc, char *argv[]){
     while(killLabel != NULL){
         free(killLabel);
         killLabel = (char*)array_1d_inspect_value(labels, k);
+        k++;
     }
     graph_kill(g);
     array_1d_kill(cleanMap);
