@@ -65,6 +65,7 @@ bool lineIsBlank(const char *s)
 // Line is blank if it only contained white-space chars.
     return firstNonWhiteSpace(s) < 0;
 }
+
 /* Return true if s is a comment line, i.e. first non-whitespc char is '#' */
 bool lineIsComment(const char *s)
 {
@@ -72,11 +73,13 @@ bool lineIsComment(const char *s)
     return (i >= 0 && s[i] == '#');
 }
 
+// Returns the index of the first comment sign or the last non-whitespace if no comment sign is found
 int firstCommentSign(const char *s){
     int i = firstNonWhiteSpace(s);
     while(s[i] != '#' && s[i]){
         i++;
     }
+
     int end = lastNonWhiteSpace(s);
     if(i > end){
         return end;
@@ -86,6 +89,7 @@ int firstCommentSign(const char *s){
 
 }
 
+/*Opens a file for reading while checking for errors. Returns the opened FILE pointer */
 FILE *readFile(const char *name){
     FILE *in;
     /* open for reading */
@@ -93,7 +97,7 @@ FILE *readFile(const char *name){
     if (in == NULL) {
         fprintf(stderr, "Failed to open %s for reading: %s\n",
                 name, strerror(errno));
-        return NULL;
+        exit(1);
     }
     /* do stuff with the file ... */
     return in;
@@ -106,8 +110,10 @@ array_1d *cleanFile(FILE *map)
     array_1d *cleanMap;
     bool numIsRead = false;
     bool reachedEdge = false;
-    int n = 0;
+    int numEdges; //Number of edges
+    int n1Length; //Buffer for the lenght of the first node in an edge-line
 
+    //This block looks for the first non-ignored line and grabs the number of lines. Return
     while(!numIsRead && fgets(lineBuffer, MAX_LINE_LENGTH, map)){
         if(!lineIsBlank(lineBuffer) && !lineIsComment(lineBuffer)){
             numIsRead = true;
@@ -119,39 +125,49 @@ array_1d *cleanFile(FILE *map)
                 }
             }
             if(!badLine){
-                n = atoi(lineBuffer);
+                numEdges = atoi(lineBuffer);
             } else{
-                //error
+                fprintf(stderr, "ERROR: First line contained %s which is not a number",
+                        lineBuffer);
+                exit(EXIT_FAILURE);
             }
         }
     }
 
+    //Create an array with space for only the flight-data lines plus the line with the number of edges
+    cleanMap = array_1d_create(0, numEdges, free);
 
-    cleanMap = array_1d_create(0, n, free);
+    //Allocate memory for the first line with number of edges and set it to the read value
     array_1d_set_value(cleanMap, malloc(sizeof(char) * MAX_LINE_LENGTH), 0);
-    sprintf(array_1d_inspect_value(cleanMap, 0), "%d", n);
-    int n1Length;
-
-    for (int i = 1; i < n + 1; ++i) {
+    sprintf(array_1d_inspect_value(cleanMap, 0), "%d", numEdges);
+    int i = 1;
+    while (fgets(lineBuffer, MAX_LINE_LENGTH, map)) {
         reachedEdge = false;
         char *currLine = malloc(82 * sizeof(char));
-        while(!reachedEdge && fgets(lineBuffer, MAX_LINE_LENGTH, map)){
+        do {
             if(!lineIsBlank(lineBuffer) && !lineIsComment(lineBuffer)){
                 reachedEdge = true;
             }
-        }
+        } while(!reachedEdge && fgets(lineBuffer, MAX_LINE_LENGTH, map));
+
         //Nodnamn max 40 tecken
         if(reachedEdge) {
             int start = firstNonWhiteSpace(lineBuffer);
             int j = 0;
             while (lineBuffer[j + start] && !isspace(lineBuffer[j + start]) && j <= 39) {
-                currLine[j] = lineBuffer[j + start];
-                j++;
+                if(isalnum(lineBuffer[j + start])){
+                    currLine[j] = lineBuffer[j + start];
+                    j++;
+                } else{
+                    fprintf(stderr, "ERROR: Edge line\n%scontained non alphanumerical character '%c'", lineBuffer, lineBuffer[j + start]);
+                    exit(EXIT_FAILURE);
+                }
             }
             if(j > 40){
                 free(currLine);
                 break;
             }
+
             currLine[j] = ' ';
             n1Length = j + 1;
             while (isspace(lineBuffer[j + start])) {
@@ -159,9 +175,15 @@ array_1d *cleanFile(FILE *map)
             }
             start--;
             j++;
+
             while (lineBuffer[j + start] && !isspace(lineBuffer[j + start]) && lineBuffer[j + start] != '#' && j <= 78 - n1Length -1) {
-                currLine[j] = lineBuffer[j + start];
-                j++;
+                if(isalnum(lineBuffer[j + start])){
+                    currLine[j] = lineBuffer[j + start];
+                    j++;
+                } else{
+                    fprintf(stderr, "ERROR: Edge line\n%scontained non alphanumerical character '%c'", lineBuffer, lineBuffer[j + start]);
+                    exit(EXIT_FAILURE);
+                }
             }
             if(j >  78 - n1Length -1){
                 free(currLine);
@@ -169,7 +191,23 @@ array_1d *cleanFile(FILE *map)
             }
             currLine[j] = '\0';
         }
-        array_1d_set_value(cleanMap, currLine, i);
+        for (int k = 0; k < i; ++k) {
+            if(strcmp(currLine, array_1d_inspect_value(cleanMap, k)) == 0){
+                fprintf(stderr, "File had duplicate edges of %s", currLine);
+                exit(EXIT_FAILURE);
+            }
+        }
+        if(i <= array_1d_high(cleanMap)){
+            array_1d_set_value(cleanMap, currLine, i);
+            i++;
+        } else{
+            fprintf(stderr, "ERROR: File stated %d edges but file had %d", numEdges, i);
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    if(!array_1d_has_value(cleanMap, array_1d_high(cleanMap))){
+        fprintf(stderr, "ERROR: Number of edges stated did not match number given (%d)", numEdges);
     }
     return cleanMap;
 
@@ -177,13 +215,13 @@ array_1d *cleanFile(FILE *map)
 
 array_1d *getLabels(const array_1d *cleanMap)
 {
-    int n = atoi(array_1d_inspect_value(cleanMap, 0));
-    array_1d *labels = array_1d_create(0, 2 * n, NULL);
+    int numEdges = atoi(array_1d_inspect_value(cleanMap, 0));
+    array_1d *labels = array_1d_create(0, 2 * numEdges, NULL);
     int firstFreeIndex = 0;
     bool lbl1Exists;
     bool lbl2Exists;
 
-    for (int i = 1; i < n + 1; ++i) {
+    for (int i = 1; i < numEdges + 1; ++i) {
         char *lbl1 = calloc(sizeof(char) , 41);
         char *lbl2 = calloc(sizeof(char), 41);
         char *currLine = array_1d_inspect_value(cleanMap, i);
