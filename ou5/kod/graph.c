@@ -125,7 +125,8 @@ graph *graph_insert_node(graph *g, const char *s)
     node *n = malloc(sizeof(*n));
 
     n->seen = false;
-    n->label = s;
+    n->label = calloc(strlen(s) + 1, sizeof(n->label));
+    strcpy(n->label, s);
     n->neighbours = dlist_empty(NULL);
     array_1d_set_value(g->nodes, n, g->numNodes);
     g->numNodes++;
@@ -256,8 +257,9 @@ dlist *graph_neighbours(const graph *g,const node *n)
  */
 void graph_kill(graph *g)
 {
-    for (int i = g->numNodes; i >= 0; i--) {
+    for (int i = g->numNodes-1; i >= 0; i--) {
         node *currNode = array_1d_inspect_value(g->nodes, i);
+        free(currNode->label);
         dlist_kill(currNode->neighbours);
         free(currNode);
     }

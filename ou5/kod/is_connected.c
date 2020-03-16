@@ -28,7 +28,7 @@ int compTuple(const void *tuple1, const void *tuple2)
 
 /* Return position of first non-whitespace character or -1 if only
 white-space is found. */
-int first_non_white_space(const char *s)
+int firstNonWhiteSpace(const char *s)
 {
     int i = 0; // Start at first char.
 // Advance until we hit EOL as long as we're loooking at white-space.
@@ -43,7 +43,7 @@ int first_non_white_space(const char *s)
 }
 /* Return position of last non-whitespace character or -1 if only
 white-space is found. */
-int last_non_white_space(const char *s)
+int lastNonWhiteSpace(const char *s)
 {
 // Start at last char.
     int i = strlen(s) - 1;
@@ -60,24 +60,24 @@ int last_non_white_space(const char *s)
 }
 
 /* Return true if s only contains whitespace */
-bool line_is_blank(const char *s)
+bool lineIsBlank(const char *s)
 {
 // Line is blank if it only contained white-space chars.
-    return first_non_white_space(s) < 0;
+    return firstNonWhiteSpace(s) < 0;
 }
 /* Return true if s is a comment line, i.e. first non-whitespc char is '#' */
-bool line_is_comment(const char *s)
+bool lineIsComment(const char *s)
 {
-    int i = first_non_white_space(s);
+    int i = firstNonWhiteSpace(s);
     return (i >= 0 && s[i] == '#');
 }
 
 int firstCommentSign(const char *s){
-    int i = first_non_white_space(s);
+    int i = firstNonWhiteSpace(s);
     while(s[i] != '#' && s[i]){
         i++;
     }
-    int end = last_non_white_space(s);
+    int end = lastNonWhiteSpace(s);
     if(i > end){
         return end;
     } else{
@@ -109,10 +109,10 @@ array_1d *cleanFile(FILE *map)
     int n = 0;
 
     while(!numIsRead && fgets(lineBuffer, MAX_LINE_LENGTH, map)){
-        if(!line_is_blank(lineBuffer) && !line_is_comment(lineBuffer)){
+        if(!lineIsBlank(lineBuffer) && !lineIsComment(lineBuffer)){
             numIsRead = true;
             bool badLine = false;
-            int start = first_non_white_space(lineBuffer);
+            int start = firstNonWhiteSpace(lineBuffer);
             for (int i = 0; i <= firstCommentSign(lineBuffer); ++i) {
                 if(!isdigit(lineBuffer[start])){
                    badLine = true;
@@ -136,13 +136,13 @@ array_1d *cleanFile(FILE *map)
         reachedEdge = false;
         char *currLine = malloc(82 * sizeof(char));
         while(!reachedEdge && fgets(lineBuffer, MAX_LINE_LENGTH, map)){
-            if(!line_is_blank(lineBuffer) && !line_is_comment(lineBuffer)){
+            if(!lineIsBlank(lineBuffer) && !lineIsComment(lineBuffer)){
                 reachedEdge = true;
             }
         }
         //Nodnamn max 40 tecken
         if(reachedEdge) {
-            int start = first_non_white_space(lineBuffer);
+            int start = firstNonWhiteSpace(lineBuffer);
             int j = 0;
             while (lineBuffer[j + start] && !isspace(lineBuffer[j + start]) && j <= 39) {
                 currLine[j] = lineBuffer[j + start];
@@ -177,12 +177,13 @@ array_1d *cleanFile(FILE *map)
 
 array_1d *getLabels(const array_1d *cleanMap)
 {
-    array_1d *labels = array_1d_create(0, 2 * (atoi(array_1d_inspect_value(cleanMap, 0)) - 1), NULL);
+    int n = atoi(array_1d_inspect_value(cleanMap, 0));
+    array_1d *labels = array_1d_create(0, 2 * n, NULL);
     int firstFreeIndex = 0;
     bool lbl1Exists;
     bool lbl2Exists;
 
-    for (int i = 1; i < array_1d_high(labels); ++i) {
+    for (int i = 1; i < n + 1; ++i) {
         char *lbl1 = calloc(sizeof(char) , 41);
         char *lbl2 = calloc(sizeof(char), 41);
         char *currLine = array_1d_inspect_value(cleanMap, i);
@@ -193,10 +194,11 @@ array_1d *getLabels(const array_1d *cleanMap)
 
 
         for (int j = 0; j < firstFreeIndex && (!lbl1Exists || !lbl2Exists); ++j) {
-            if(strcmp(array_1d_inspect_value(labels, j), lbl1) == 0){
+            char *currLabel = array_1d_inspect_value(labels, j);
+            if(strcmp(currLabel, lbl1) == 0){
                 lbl1Exists = true;
             }
-            if(strcmp(array_1d_inspect_value(labels, j), lbl2) == 0){
+            if(strcmp(currLabel, lbl2) == 0){
                 lbl2Exists = true;
             }
         }
@@ -247,15 +249,21 @@ graph *addEdges(graph *g, const array_1d *cleanMap){
         if(!nodes_are_equal(n1, n2)){
             graph_insert_edge(g, n1, n2);
         }
+        free(lbl1);
+        free(lbl2);
         //printf("\n");
 
     }
     return g;
 }
 
+void tupleFreeFunc(void *tuple){
+    array_1d_kill(tuple);
+}
+
 table *getMatrix(graph *g, const array_1d *labels)
 {
-    table *output = table_empty(compTuple , free, free);
+    table *output = table_empty(compTuple, tupleFreeFunc, free);
     bool lblFound;
     int j = 0;
     int i = 0;
@@ -266,11 +274,13 @@ table *getMatrix(graph *g, const array_1d *labels)
         dlist_pos pos = dlist_first(currNeighbours);
 
         array_1d *tuple = array_1d_create(0, 1, free);
-        int *pj = calloc(sizeof(int), 1);
-        *pj = j;
+        int *pj1 = calloc(sizeof(int), 1);
+        int *pj2 = calloc(sizeof(int), 1);
+        *pj1 = j;
+        *pj2 = j;
 
-        array_1d_set_value(tuple, pj, 0);
-        array_1d_set_value(tuple, pj, 1);
+        array_1d_set_value(tuple, pj1, 0);
+        array_1d_set_value(tuple, pj2, 1);
         int *neighbour = calloc(sizeof(int), 1);
         *neighbour = 1;
         table_insert(output, tuple, neighbour);
@@ -334,40 +344,44 @@ int main(int argc, char *argv[]){
     g = addNodes(g, labels);
     g = addEdges(g, cleanMap);
     table *matrix = getMatrix(g, labels);
-//    int i = 0;
-//    int j = 0;
-//
-//    printf("   ");
-//    while(array_1d_inspect_value(labels, i) != NULL){
-//        printf("%s ", (char*)array_1d_inspect_value(labels, i));
-//        i++;
-//    }
-//    printf("\n");
-//    i = 0;
-//    while(array_1d_inspect_value(labels, i) != NULL){
-//        printf("%s ", (char*)array_1d_inspect_value(labels, i));
-//        j = 0;
-//        while(array_1d_inspect_value(labels, j) != NULL){
-//            int *matrixValue = (int*)tupleLookup(matrix, i, j);
-//            if(matrixValue != NULL){
-//                printf("%d   ", *(int*)matrixValue);
-//            } else{
-//                printf("%d   ", 0);
-//            }
-//            j++;
-//        }
-//        printf("\n");
-//        i++;
-//    }
+/*    int i = 0;
+    int j = 0;
+
+    printf("   ");
+    while(array_1d_inspect_value(labels, i) != NULL){
+        printf("%s ", (char*)array_1d_inspect_value(labels, i));
+        i++;
+    }
+    printf("\n");
+    i = 0;
+    while(array_1d_inspect_value(labels, i) != NULL){
+        printf("%s ", (char*)array_1d_inspect_value(labels, i));
+        j = 0;
+        while(array_1d_inspect_value(labels, j) != NULL){
+            int *matrixValue = (int*)tupleLookup(matrix, i, j);
+            if(matrixValue != NULL){
+                printf("%d   ", *(int*)matrixValue);
+            } else{
+                printf("%d   ", 0);
+            }
+            j++;
+        }
+        printf("\n");
+        i++;
+    }*/
+
     int k = 0;
     char *killLabel = (char*)array_1d_inspect_value(labels, k);
     while(killLabel != NULL){
         free(killLabel);
-        killLabel = (char*)array_1d_inspect_value(labels, k);
         k++;
+        killLabel = (char*)array_1d_inspect_value(labels, k);
     }
+    array_1d_kill(labels);
+
     graph_kill(g);
     array_1d_kill(cleanMap);
+
     table_kill(matrix);
     return 0;
 }

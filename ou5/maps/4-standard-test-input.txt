@@ -1,0 +1,10 @@
+Nod1 Nod4
+Nod4 Nod1
+Nod1 Nod2
+Nod1 Nod5
+Nod1 Nod9
+Nod9 Nod4
+Nod8 Nod6
+Nod8 Nod4
+quit
+
