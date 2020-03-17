@@ -192,7 +192,7 @@ array_1d *cleanFile(FILE *map)
             }
             j++;
             if(lastNonWhiteSpaceNoComment(lineBuffer) == j + offset){
-                sprintf("ERROR: Line:\n %s only contains one node", lineBuffer);
+                fprintf(stderr, "ERROR: Line:\n %s only contains one node", lineBuffer);
                 exit(EXIT_FAILURE);
             }
 
@@ -419,6 +419,8 @@ bool find_path(graph *g, node *src, node *dest){
         while(!dlist_is_end(neighbourSet, pos)){
             node *currNeighbour = dlist_inspect(neighbourSet, pos);
             if(nodes_are_equal(currNeighbour, dest)){
+                dlist_kill(neighbourSet);
+                queue_kill(q);
                 return true;
             }
             if(!graph_node_is_seen(g, currNeighbour)){
@@ -497,20 +499,20 @@ int main(int argc, char *argv[]){
             node *src = graph_find_node(g, start);
             node *dest = graph_find_node(g, goal);
             if(src == NULL) {
-                printf("The node '%s' does not exist in the given map\n\n", start);
+                printf("The node '%s' does not exist in the given map.\n\n", start);
             } else if(dest == NULL){
-                printf("The node '%s' does not exist in the given map\n\n", goal);
+                printf("The node '%s' does not exist in the given map.\n\n", goal);
             } else{
                 if(find_path(g, src, dest)){
-                    printf("There is a path from %s to %s\n\n", start, goal);
+                    printf("There is a path from %s to %s.\n\n", start, goal);
                 } else{
-                    printf("There is no path from %s to %\n\n", start, goal);
+                    printf("There is no path from %s to %s.\n\n", start, goal);
                 }
             }
         }
 
     }while(strcmp(input, "quit") != 0);
-    printf("Normal Exit");
+    printf("Normal exit.\n");
 
     //Kill everything
     array_1d_kill(labels);
