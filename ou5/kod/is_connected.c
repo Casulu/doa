@@ -425,6 +425,7 @@ bool breadthFirst(graph *g, node *n1, node *n2){
                 graph_node_set_seen(g, currNeighbour, true);
                 q = queue_enqueue(q, currNeighbour);
             }
+            pos = dlist_next(neighbourSet, pos);
         }
     }
     return false;
