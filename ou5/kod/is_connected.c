@@ -7,6 +7,7 @@
 #include "graph.h"
 #include "table.h"
 #include "array_1d.h"
+#include "queue.h"
 
 #define MAX_LINE_LENGTH 300
 
@@ -75,7 +76,7 @@ bool lineIsComment(const char *s)
 
 // Returns the index of the first comment sign or the last non-whitespace if no comment sign is found
 int firstCommentSign(const char *s){
-    int i = firstNonWhiteSpace(s);
+    int i = 0;
     while(s[i] != '#' && s[i]){
         i++;
     }
@@ -87,6 +88,22 @@ int firstCommentSign(const char *s){
         return i;
     }
 
+}
+
+int lastNonWhiteSpaceNoComment(const char *s)
+{
+// Start at last char.
+    int i = firstCommentSign(s);
+// Move back until we hit beginning-of-line as long as we're
+// looking at white-space.
+    while (i >= 0 && isspace(s[i])) {
+        i--;
+    }
+    if (i >= 0) {
+        return i; // Return position of found a non-white-space char.
+    } else {
+        return -1; // Return fail.
+    }
 }
 
 /*Opens a file for reading while checking for errors. Returns the opened FILE pointer */
@@ -118,9 +135,9 @@ array_1d *cleanFile(FILE *map)
         if(!lineIsBlank(lineBuffer) && !lineIsComment(lineBuffer)){
             numIsRead = true;
             bool badLine = false;
-            int start = firstNonWhiteSpace(lineBuffer);
+            int offset = firstNonWhiteSpace(lineBuffer);
             for (int i = 0; i <= firstCommentSign(lineBuffer); ++i) {
-                if(!isdigit(lineBuffer[start])){
+                if(!isdigit(lineBuffer[offset])){
                    badLine = true;
                 }
             }
@@ -152,14 +169,14 @@ array_1d *cleanFile(FILE *map)
 
         //Nodnamn max 40 tecken
         if(reachedEdge) {
-            int start = firstNonWhiteSpace(lineBuffer);
+            int offset = firstNonWhiteSpace(lineBuffer);
             int j = 0;
-            while (lineBuffer[j + start] && !isspace(lineBuffer[j + start]) && j <= 40) {
-                if(isalnum(lineBuffer[j + start])){
-                    currLine[j] = lineBuffer[j + start];
+            while (lineBuffer[j + offset] && !isspace(lineBuffer[j + offset]) && j <= 40) {
+                if(isalnum(lineBuffer[j + offset])){
+                    currLine[j] = lineBuffer[j + offset];
                     j++;
                 } else{
-                    fprintf(stderr, "ERROR: Edge line\n%scontained non alphanumerical character '%c'\n", lineBuffer, lineBuffer[j + start]);
+                    fprintf(stderr, "ERROR: Edge line\n%scontained non alphanumerical character '%c'\n", lineBuffer, lineBuffer[j + offset]);
                     exit(EXIT_FAILURE);
                 }
             }
@@ -170,23 +187,26 @@ array_1d *cleanFile(FILE *map)
 
             currLine[j] = ' ';
             n1Length = j - 1;
-            while (isspace(lineBuffer[j + start])) {
-                start++;
+            while (isspace(lineBuffer[j + offset + 1])) {
+                offset++;
             }
-            start--;
             j++;
+            if(lastNonWhiteSpaceNoComment(lineBuffer) == j + offset){
+                sprintf("ERROR: Line:\n %s only contains one node", lineBuffer);
+                exit(EXIT_FAILURE);
+            }
 
-            while (lineBuffer[j + start] && !isspace(lineBuffer[j + start]) && lineBuffer[j + start] != '#' && j - 1 - n1Length <= 40) {
-                if(isalnum(lineBuffer[j + start])){
-                    currLine[j] = lineBuffer[j + start];
+            while (lineBuffer[j + offset] && !isspace(lineBuffer[j + offset]) && lineBuffer[j + offset] != '#' && j - 1 - n1Length <= 40) {
+                if(isalnum(lineBuffer[j + offset])){
+                    currLine[j] = lineBuffer[j + offset];
                     j++;
                 } else{
-                    fprintf(stderr, "ERROR: Edge line\n%scontained non alphanumerical character '%c'\n", lineBuffer, lineBuffer[j + start]);
+                    fprintf(stderr, "ERROR: Edge line:\n%scontained non alphanumerical character '%c'\n", lineBuffer, lineBuffer[j + offset]);
                     exit(EXIT_FAILURE);
                 }
             }
             if(j - 1 - n1Length > 40){
-                fprintf(stderr, "ERROR: Second node in line '%s' contains more than 40 characters", currLine);
+                fprintf(stderr, "ERROR: Second node in line '%s' contains more than 40 characters", lineBuffer);
                 exit(EXIT_FAILURE);
             }
             currLine[j] = '\0';
@@ -207,7 +227,7 @@ array_1d *cleanFile(FILE *map)
     }
 
     if(!array_1d_has_value(cleanMap, array_1d_high(cleanMap))){
-        fprintf(stderr, "ERROR: Number of edges stated did not match number given (%d)\n", numEdges);
+        fprintf(stderr, "ERROR: Number of edges stated did not actual number (%d)\n", numEdges);
     }
     return cleanMap;
 
@@ -383,6 +403,33 @@ void expandMatrix(table *m, int n){
     }
 }
 
+bool breadthFirst(graph *g, node *n1, node *n2){
+    queue *q = queue_empty(NULL);
+    dlist *neighbourSet;
+    if(nodes_are_equal(n1, n2)){
+        return true;
+    }
+    graph_node_set_seen(g, n1, true);
+    q = queue_enqueue(q, n1);
+    while(!queue_is_empty(q)){
+        node *currNode = queue_front(q);
+        q = queue_dequeue(q);
+        neighbourSet = graph_neighbours(g, currNode);
+        dlist_pos pos = dlist_first(neighbourSet);
+        while(!dlist_is_end(neighbourSet, pos)){
+            node *currNeighbour = dlist_inspect(neighbourSet, pos);
+            if(nodes_are_equal(currNeighbour, n2)){
+                return true;
+            }
+            if(!graph_node_is_seen(g, currNeighbour)){
+                graph_node_set_seen(g, currNeighbour, true);
+                q = queue_enqueue(q, currNeighbour);
+            }
+        }
+    }
+    return false;
+}
+
 void printMatrix(table *m, int n){
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
@@ -406,34 +453,40 @@ int main(int argc, char *argv[]){
     array_1d *cleanMap = cleanFile(map); //Allocates
     fclose(map);
 
-    graph *g = graph_empty(atoi(array_1d_inspect_value(cleanMap, 0)) * 2);
     array_1d *labels = getLabels(cleanMap);
     int n = 0;
     while(array_1d_inspect_value(labels, n) != NULL){
         n++;
     }
 
+    graph *g = graph_empty(n);
     g = addNodes(g, labels);
     g = addEdges(g, cleanMap);
 
     //The indices in the tuple values represent the array indices in the "labels" array
-    table *matrix = getMatrix(g, labels);
-    expandMatrix(matrix, n);
+    //table *matrix = getMatrix(g, labels);
+    //expandMatrix(matrix, n);
+
+
+    char start[41];
+    char dest[41];
+    scanf("%s %s", start, dest);
+    if(breadthFirst(g, graph_find_node(g, start), graph_find_node(g, dest))){
+        printf("Japp");
+    } else{
+        printf("Nopp");
+    }
+
 
     //printMatrix(matrix, n);
 
 
 
     //Kill everything
-//    for (int i = 0; i < n; ++i) {
-//        free(array_1d_inspect_value(labels, i));
-//    }
     array_1d_kill(labels);
-
     graph_kill(g);
     array_1d_kill(cleanMap);
-
-    table_kill(matrix);
+    //table_kill(matrix);
     return 0;
 }
 

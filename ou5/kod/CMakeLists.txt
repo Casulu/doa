@@ -11,4 +11,5 @@ add_executable(kod
         ../../datastructures-v1.0.8.2/src/array_1d/array_1d.c
         ../../datastructures-v1.0.8.2/src/dlist/dlist.c
         ../../datastructures-v1.0.8.2/src/table/table2.c
+        ../../datastructures-v1.0.8.2/src/queue/queue.c
         )
