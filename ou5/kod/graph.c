@@ -125,7 +125,7 @@ graph *graph_insert_node(graph *g, const char *s)
     node *n = malloc(sizeof(*n));
 
     n->seen = false;
-    n->label = calloc(strlen(s) + 1, sizeof(*n->label));
+    n->label = calloc(strlen(s) + 1, sizeof(char));
     strcpy(n->label, s);
     n->neighbours = dlist_empty(NULL);
     array_1d_set_value(g->nodes, n, g->numNodes);

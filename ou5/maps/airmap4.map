@@ -1,0 +1,10 @@
+# Some airline network
+8
+12345678890123456789012345678901234567890 123456788901234567890123456789012345678901
+BMA UME # Bromma-Umea
+BMA MMX # Bromma-Malmo
+MMX BMA # Malmo-Bromma
+BMA GOT # Bromma-Goteborg
+GOT BMA # Goteborg-Bromma
+LLA PJA # Lulea-Pajala
+PJA LLA # Pajala-Lulea

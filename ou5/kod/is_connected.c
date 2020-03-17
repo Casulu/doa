@@ -95,7 +95,7 @@ FILE *readFile(const char *name){
     /* open for reading */
     in = fopen(name, "r");
     if (in == NULL) {
-        fprintf(stderr, "Failed to open %s for reading: %s\n",
+        fprintf(stderr, "ERROR: Failed to open %s for reading: %s\n",
                 name, strerror(errno));
         exit(1);
     }
@@ -111,7 +111,7 @@ array_1d *cleanFile(FILE *map)
     bool numIsRead = false;
     bool reachedEdge = false;
     int numEdges; //Number of edges
-    int n1Length; //Buffer for the lenght of the first node in an edge-line
+    int n1Length; //Buffer for the length of the first node in an edge-line
 
     //This block looks for the first non-ignored line and grabs the number of lines. Return
     while(!numIsRead && fgets(lineBuffer, MAX_LINE_LENGTH, map)){
@@ -127,7 +127,7 @@ array_1d *cleanFile(FILE *map)
             if(!badLine){
                 numEdges = atoi(lineBuffer);
             } else{
-                fprintf(stderr, "ERROR: First line contained %s which is not a number",
+                fprintf(stderr, "ERROR: First line contained %s which is not a number\n",
                         lineBuffer);
                 exit(EXIT_FAILURE);
             }
@@ -143,7 +143,7 @@ array_1d *cleanFile(FILE *map)
     int i = 1;
     while (fgets(lineBuffer, MAX_LINE_LENGTH, map)) {
         reachedEdge = false;
-        char *currLine = malloc(82 * sizeof(char));
+        char *currLine = malloc(83 * sizeof(char));
         do {
             if(!lineIsBlank(lineBuffer) && !lineIsComment(lineBuffer)){
                 reachedEdge = true;
@@ -154,46 +154,46 @@ array_1d *cleanFile(FILE *map)
         if(reachedEdge) {
             int start = firstNonWhiteSpace(lineBuffer);
             int j = 0;
-            while (lineBuffer[j + start] && !isspace(lineBuffer[j + start]) && j <= 39) {
+            while (lineBuffer[j + start] && !isspace(lineBuffer[j + start]) && j <= 40) {
                 if(isalnum(lineBuffer[j + start])){
                     currLine[j] = lineBuffer[j + start];
                     j++;
                 } else{
-                    fprintf(stderr, "ERROR: Edge line\n%scontained non alphanumerical character '%c'", lineBuffer, lineBuffer[j + start]);
+                    fprintf(stderr, "ERROR: Edge line\n%scontained non alphanumerical character '%c'\n", lineBuffer, lineBuffer[j + start]);
                     exit(EXIT_FAILURE);
                 }
             }
-            if(j > 40){
-                free(currLine);
-                break;
+            if(j > 41){
+                fprintf(stderr, "ERROR: Node '%s' contains more than 40 characters", currLine);
+                exit(EXIT_FAILURE);
             }
 
             currLine[j] = ' ';
-            n1Length = j + 1;
+            n1Length = j - 1;
             while (isspace(lineBuffer[j + start])) {
                 start++;
             }
             start--;
             j++;
 
-            while (lineBuffer[j + start] && !isspace(lineBuffer[j + start]) && lineBuffer[j + start] != '#' && j <= 78 - n1Length -1) {
+            while (lineBuffer[j + start] && !isspace(lineBuffer[j + start]) && lineBuffer[j + start] != '#' && j - 1 - n1Length <= 40) {
                 if(isalnum(lineBuffer[j + start])){
                     currLine[j] = lineBuffer[j + start];
                     j++;
                 } else{
-                    fprintf(stderr, "ERROR: Edge line\n%scontained non alphanumerical character '%c'", lineBuffer, lineBuffer[j + start]);
+                    fprintf(stderr, "ERROR: Edge line\n%scontained non alphanumerical character '%c'\n", lineBuffer, lineBuffer[j + start]);
                     exit(EXIT_FAILURE);
                 }
             }
-            if(j >  78 - n1Length -1){
-                free(currLine);
-                break;
+            if(j - 1 - n1Length > 40){
+                fprintf(stderr, "ERROR: Second node in line '%s' contains more than 40 characters", currLine);
+                exit(EXIT_FAILURE);
             }
             currLine[j] = '\0';
         }
         for (int k = 0; k < i; ++k) {
             if(strcmp(currLine, array_1d_inspect_value(cleanMap, k)) == 0){
-                fprintf(stderr, "File had duplicate edges of %s", currLine);
+                fprintf(stderr, "ERROR: File had duplicate edges of '%s'\n", currLine);
                 exit(EXIT_FAILURE);
             }
         }
@@ -201,13 +201,13 @@ array_1d *cleanFile(FILE *map)
             array_1d_set_value(cleanMap, currLine, i);
             i++;
         } else{
-            fprintf(stderr, "ERROR: File stated %d edges but file had %d", numEdges, i);
+            fprintf(stderr, "ERROR: File stated %d edges but file had %d\n", numEdges, i);
             exit(EXIT_FAILURE);
         }
     }
 
     if(!array_1d_has_value(cleanMap, array_1d_high(cleanMap))){
-        fprintf(stderr, "ERROR: Number of edges stated did not match number given (%d)", numEdges);
+        fprintf(stderr, "ERROR: Number of edges stated did not match number given (%d)\n", numEdges);
     }
     return cleanMap;
 
@@ -216,14 +216,14 @@ array_1d *cleanFile(FILE *map)
 array_1d *getLabels(const array_1d *cleanMap)
 {
     int numEdges = atoi(array_1d_inspect_value(cleanMap, 0));
-    array_1d *labels = array_1d_create(0, 2 * numEdges, NULL);
+    array_1d *labels = array_1d_create(0, 2 * numEdges, free);
     int firstFreeIndex = 0;
     bool lbl1Exists;
     bool lbl2Exists;
 
     for (int i = 1; i < numEdges + 1; ++i) {
-        char *lbl1 = calloc(sizeof(char) , 41);
-        char *lbl2 = calloc(sizeof(char), 41);
+        char *lbl1 = calloc(41, sizeof(char));
+        char *lbl2 = calloc(41, sizeof(char));
         char *currLine = array_1d_inspect_value(cleanMap, i);
         sscanf(currLine, "%s %s", lbl1, lbl2);
 
@@ -254,11 +254,7 @@ array_1d *getLabels(const array_1d *cleanMap)
             free(lbl1);
         }
     }
-    array_1d_set_value(labels, NULL, firstFreeIndex);
-    //for (int j = 0; j < firstFreeIndex; ++j) {
-    //    printf("%s ", array_1d_inspect_value(labels, j));
-    //}
-    //putchar('\n');
+
     return labels;
 }
 
@@ -275,28 +271,56 @@ graph *addNodes(graph *g, const array_1d *labels)
 
 graph *addEdges(graph *g, const array_1d *cleanMap){
     for (int i = 1; i < atoi(array_1d_inspect_value(cleanMap, 0)) + 1; ++i) {
-        char *lbl1 = calloc(sizeof(char), 41);
-        char *lbl2 = calloc(sizeof(char), 41);
+        char *lbl1 = calloc(41, sizeof(char));
+        char *lbl2 = calloc(41, sizeof(char));
         char *currLine = array_1d_inspect_value(cleanMap, i);
         sscanf(currLine, "%s %s", lbl1, lbl2);
 
         node *n1 = graph_find_node(g, lbl1);
         node *n2 = graph_find_node(g, lbl2);
 
-        //printf("%s\n", lbl1);
         if(!nodes_are_equal(n1, n2)){
             graph_insert_edge(g, n1, n2);
         }
         free(lbl1);
         free(lbl2);
-        //printf("\n");
 
     }
     return g;
 }
 
 void tupleFreeFunc(void *tuple){
+    array_1d_kill((array_1d*)tuple);
+}
+
+int *tupleLookup(table *t, int i, int j)
+{
+    array_1d *tuple = array_1d_create(0, 1, free);
+    int *pi = malloc(sizeof(*pi));
+    *pi = i;
+    array_1d_set_value(tuple, pi, 0);
+
+    int *pj = malloc(sizeof(*pj));
+    *pj = j;
+    array_1d_set_value(tuple, pj, 1);
+
+    int *value = (int*)table_lookup(t, tuple);
     array_1d_kill(tuple);
+    return value;
+}
+
+void tupleInsert(table *t, int v, int i, int j){
+    array_1d *tuple = array_1d_create(0, 1, free);
+    int *pi = malloc(sizeof(int));
+    *pi = i;
+    int *pj = malloc(sizeof(int));
+    *pj = j;
+
+    array_1d_set_value(tuple, pi, 0);
+    array_1d_set_value(tuple, pj, 1);
+    int *neighbour = malloc(sizeof(int));
+    *neighbour = v;
+    table_insert(t, tuple, neighbour);
 }
 
 table *getMatrix(graph *g, const array_1d *labels)
@@ -311,17 +335,7 @@ table *getMatrix(graph *g, const array_1d *labels)
         dlist *currNeighbours = graph_neighbours(g, currNode);
         dlist_pos pos = dlist_first(currNeighbours);
 
-        array_1d *tuple = array_1d_create(0, 1, free);
-        int *pj1 = calloc(sizeof(int), 1);
-        int *pj2 = calloc(sizeof(int), 1);
-        *pj1 = j;
-        *pj2 = j;
-
-        array_1d_set_value(tuple, pj1, 0);
-        array_1d_set_value(tuple, pj2, 1);
-        int *neighbour = calloc(sizeof(int), 1);
-        *neighbour = 1;
-        table_insert(output, tuple, neighbour);
+       tupleInsert(output, 0, j, j);
 
 
         while(!dlist_is_end(currNeighbours, pos)){
@@ -336,17 +350,7 @@ table *getMatrix(graph *g, const array_1d *labels)
                 }
             }
 
-            array_1d *tuple = array_1d_create(0, 1, free);
-            int *pi = calloc(sizeof(int), 1);
-            *pi = i;
-            int *pj = calloc(sizeof(int), 1);
-            *pj = j;
-
-            array_1d_set_value(tuple, pi, 0);
-            array_1d_set_value(tuple, pj, 1);
-            int *neighbour = calloc(sizeof(int), 1);
-            *neighbour = 1;
-            table_insert(output, tuple, neighbour);
+            tupleInsert(output, 1, i, j);
             pos = dlist_next(currNeighbours, pos);
         }
         dlist_kill(currNeighbours);
@@ -356,65 +360,74 @@ table *getMatrix(graph *g, const array_1d *labels)
     return output;
 }
 
-void *tupleLookup(table *t, int i, int j)
-{
-    array_1d *tuple = array_1d_create(0, 1, free);
-    int *pi = malloc(sizeof(*pi));
-    *pi = i;
-    array_1d_set_value(tuple, pi, 0);
+void expandMatrix(table *m, int n){
+    for (int k = 0; k < n; ++k) {
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                int *ij = tupleLookup(m, i, j);
+                int *ik = tupleLookup(m, i, k);
+                int *kj = tupleLookup(m, k, j);
 
-    int *pj = malloc(sizeof(*pj));
-    *pj = j;
-    array_1d_set_value(tuple, pj, 1);
+                if (ik != NULL && kj != NULL){
+                    int total = *ik + *kj;
+                    if (ij != NULL) {
+                        if (*ij > total){
+                            *ij = total;
+                        }
+                    } else {
+                        tupleInsert(m, total, i, j);
+                    }
+                }
+            }
+        }
+    }
+}
 
-    void *value = table_lookup(t, tuple);
-    array_1d_kill(tuple);
-    return value;
+void printMatrix(table *m, int n){
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            int *v = tupleLookup(m, i, j);
+            if(v != NULL) {
+                printf("%d  ", *tupleLookup(m, i, j));
+            } else{
+                printf("∞  ");
+            }
+        }
+        putchar('\n');
+    }
 }
 
 int main(int argc, char *argv[]){
+    if(argc != 2){
+        exit(EXIT_FAILURE);
+    }
+
     FILE *map = readFile(argv[1]);
     array_1d *cleanMap = cleanFile(map); //Allocates
     fclose(map);
 
-    graph *g = graph_empty(atoi(array_1d_inspect_value(cleanMap, 0)));
+    graph *g = graph_empty(atoi(array_1d_inspect_value(cleanMap, 0)) * 2);
     array_1d *labels = getLabels(cleanMap);
+    int n = 0;
+    while(array_1d_inspect_value(labels, n) != NULL){
+        n++;
+    }
+
     g = addNodes(g, labels);
     g = addEdges(g, cleanMap);
+
+    //The indices in the tuple values represent the array indices in the "labels" array
     table *matrix = getMatrix(g, labels);
-/*    int i = 0;
-    int j = 0;
+    expandMatrix(matrix, n);
 
-    printf("   ");
-    while(array_1d_inspect_value(labels, i) != NULL){
-        printf("%s ", (char*)array_1d_inspect_value(labels, i));
-        i++;
-    }
-    printf("\n");
-    i = 0;
-    while(array_1d_inspect_value(labels, i) != NULL){
-        printf("%s ", (char*)array_1d_inspect_value(labels, i));
-        j = 0;
-        while(array_1d_inspect_value(labels, j) != NULL){
-            int *matrixValue = (int*)tupleLookup(matrix, i, j);
-            if(matrixValue != NULL){
-                printf("%d   ", *(int*)matrixValue);
-            } else{
-                printf("%d   ", 0);
-            }
-            j++;
-        }
-        printf("\n");
-        i++;
-    }*/
+    //printMatrix(matrix, n);
 
-    int k = 0;
-    char *killLabel = (char*)array_1d_inspect_value(labels, k);
-    while(killLabel != NULL){
-        free(killLabel);
-        k++;
-        killLabel = (char*)array_1d_inspect_value(labels, k);
-    }
+
+
+    //Kill everything
+//    for (int i = 0; i < n; ++i) {
+//        free(array_1d_inspect_value(labels, i));
+//    }
     array_1d_kill(labels);
 
     graph_kill(g);
