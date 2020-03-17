@@ -403,14 +403,14 @@ void expandMatrix(table *m, int n){
     }
 }
 
-bool breadthFirst(graph *g, node *n1, node *n2){
+bool find_path(graph *g, node *src, node *dest){
     queue *q = queue_empty(NULL);
     dlist *neighbourSet;
-    if(nodes_are_equal(n1, n2)){
+    if(nodes_are_equal(src, dest)){
         return true;
     }
-    graph_node_set_seen(g, n1, true);
-    q = queue_enqueue(q, n1);
+    graph_node_set_seen(g, src, true);
+    q = queue_enqueue(q, src);
     while(!queue_is_empty(q)){
         node *currNode = queue_front(q);
         q = queue_dequeue(q);
@@ -418,7 +418,7 @@ bool breadthFirst(graph *g, node *n1, node *n2){
         dlist_pos pos = dlist_first(neighbourSet);
         while(!dlist_is_end(neighbourSet, pos)){
             node *currNeighbour = dlist_inspect(neighbourSet, pos);
-            if(nodes_are_equal(currNeighbour, n2)){
+            if(nodes_are_equal(currNeighbour, dest)){
                 return true;
             }
             if(!graph_node_is_seen(g, currNeighbour)){
@@ -427,7 +427,9 @@ bool breadthFirst(graph *g, node *n1, node *n2){
             }
             pos = dlist_next(neighbourSet, pos);
         }
+        dlist_kill(neighbourSet);
     }
+    queue_kill(q);
     return false;
 }
 
@@ -468,20 +470,47 @@ int main(int argc, char *argv[]){
     //table *matrix = getMatrix(g, labels);
     //expandMatrix(matrix, n);
 
-
+    char input[83];
     char start[41];
-    char dest[41];
-    scanf("%s %s", start, dest);
-    if(breadthFirst(g, graph_find_node(g, start), graph_find_node(g, dest))){
-        printf("Japp");
-    } else{
-        printf("Nopp");
-    }
+    char goal[41];
 
+    do{
+        printf("Enter origin and destination (quit to exit): ");
+        scanf("%[^\n]%*c", input);
 
-    //printMatrix(matrix, n);
+        if(strcmp(input, "quit") != 0){
+            int i = 0;
+            while(!isspace(input[i]) && input[i] != '\0'){
+                start[i] = input[i];
+                i++;
+            }
+            start[i] = '\0';
+            i++;
+            int j = 0;
+            while(input[i] != '\0'){
+                goal[j] = input[i];
+                i++;
+                j++;
+            }
+            goal[j] = '\0';
 
+            node *src = graph_find_node(g, start);
+            node *dest = graph_find_node(g, goal);
+            if(src == NULL) {
+                printf("The node '%s' does not exist in the given map\n\n", start);
+            } else if(dest == NULL){
+                printf("The node '%s' does not exist in the given map\n\n", goal);
+            } else{
+                if(find_path(g, src, dest)){
+                    printf("There is a path from %s to %s\n\n", start, goal);
+                } else{
+                    printf("There is no path from %s to %\n\n", start, goal);
+                }
+            }
+        }
 
+    }while(strcmp(input, "quit") != 0);
+    printf("Normal Exit");
 
     //Kill everything
     array_1d_kill(labels);
