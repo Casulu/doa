@@ -114,7 +114,6 @@ graph *interpretMap(FILE *map)
 {
     graph *g;
     char lineBuffer[MAX_LINE_LENGTH];
-    array_1d *cleanMap;
     bool numIsRead = false;
     bool reachedEdge = false;
     bool badLine = false;
@@ -242,7 +241,7 @@ graph *interpretMap(FILE *map)
 
         }
         if(actualNumEdges > numEdges){
-            fprintf(stderr, "ERROR: File stated %d\n", numEdges, actualNumEdges);
+            fprintf(stderr, "ERROR: File stated %d but had at least %d\n", numEdges, actualNumEdges);
             exit(EXIT_FAILURE);;
         }
     }
