@@ -309,106 +309,12 @@ graph *addEdges(graph *g, const array_1d *cleanMap){
     return g;
 }
 
-void tupleFreeFunc(void *tuple){
-    array_1d_kill((array_1d*)tuple);
-}
-
-int *tupleLookup(table *t, int i, int j)
-{
-    array_1d *tuple = array_1d_create(0, 1, free);
-    int *pi = malloc(sizeof(*pi));
-    *pi = i;
-    array_1d_set_value(tuple, pi, 0);
-
-    int *pj = malloc(sizeof(*pj));
-    *pj = j;
-    array_1d_set_value(tuple, pj, 1);
-
-    int *value = (int*)table_lookup(t, tuple);
-    array_1d_kill(tuple);
-    return value;
-}
-
-void tupleInsert(table *t, int v, int i, int j){
-    array_1d *tuple = array_1d_create(0, 1, free);
-    int *pi = malloc(sizeof(int));
-    *pi = i;
-    int *pj = malloc(sizeof(int));
-    *pj = j;
-
-    array_1d_set_value(tuple, pi, 0);
-    array_1d_set_value(tuple, pj, 1);
-    int *neighbour = malloc(sizeof(int));
-    *neighbour = v;
-    table_insert(t, tuple, neighbour);
-}
-
-table *getMatrix(graph *g, const array_1d *labels)
-{
-    table *output = table_empty(compTuple, tupleFreeFunc, free);
-    bool lblFound;
-    int j = 0;
-    int i = 0;
-
-    while(array_1d_inspect_value(labels, j) != NULL) {
-        node *currNode = graph_find_node(g, array_1d_inspect_value(labels, j));
-        dlist *currNeighbours = graph_neighbours(g, currNode);
-        dlist_pos pos = dlist_first(currNeighbours);
-
-       tupleInsert(output, 0, j, j);
-
-
-        while(!dlist_is_end(currNeighbours, pos)){
-            i = 0;
-            lblFound = false;
-
-            while(array_1d_inspect_value(labels, i) != NULL && !lblFound){
-                if(nodes_are_equal(graph_find_node(g, array_1d_inspect_value(labels, i)), dlist_inspect(currNeighbours, pos))){
-                    lblFound = true;
-                } else{
-                    i++;
-                }
-            }
-
-            tupleInsert(output, 1, i, j);
-            pos = dlist_next(currNeighbours, pos);
-        }
-        dlist_kill(currNeighbours);
-        j++;
-    }
-
-    return output;
-}
-
-void expandMatrix(table *m, int n){
-    for (int k = 0; k < n; ++k) {
-        for (int i = 0; i < n; ++i) {
-            for (int j = 0; j < n; ++j) {
-                int *ij = tupleLookup(m, i, j);
-                int *ik = tupleLookup(m, i, k);
-                int *kj = tupleLookup(m, k, j);
-
-                if (ik != NULL && kj != NULL){
-                    int total = *ik + *kj;
-                    if (ij != NULL) {
-                        if (*ij > total){
-                            *ij = total;
-                        }
-                    } else {
-                        tupleInsert(m, total, i, j);
-                    }
-                }
-            }
-        }
-    }
-}
-
 bool find_path(graph *g, node *src, node *dest){
-    queue *q = queue_empty(NULL);
-    dlist *neighbourSet;
     if(nodes_are_equal(src, dest)){
         return true;
     }
+    queue *q = queue_empty(NULL);
+    dlist *neighbourSet;
     graph_node_set_seen(g, src, true);
     q = queue_enqueue(q, src);
     while(!queue_is_empty(q)){
@@ -435,20 +341,6 @@ bool find_path(graph *g, node *src, node *dest){
     return false;
 }
 
-void printMatrix(table *m, int n){
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            int *v = tupleLookup(m, i, j);
-            if(v != NULL) {
-                printf("%d  ", *tupleLookup(m, i, j));
-            } else{
-                printf("∞  ");
-            }
-        }
-        putchar('\n');
-    }
-}
-
 int main(int argc, char *argv[]){
     if(argc != 2){
         exit(EXIT_FAILURE);
@@ -468,9 +360,6 @@ int main(int argc, char *argv[]){
     g = addNodes(g, labels);
     g = addEdges(g, cleanMap);
 
-    //The indices in the tuple values represent the array indices in the "labels" array
-    //table *matrix = getMatrix(g, labels);
-    //expandMatrix(matrix, n);
 
     char input[83];
     char start[41];
@@ -481,44 +370,53 @@ int main(int argc, char *argv[]){
         scanf("%[^\n]%*c", input);
 
         if(strcmp(input, "quit") != 0){
+            int lastNW = lastNonWhiteSpace(input);
             int i = 0;
             while(!isspace(input[i]) && input[i] != '\0'){
                 start[i] = input[i];
                 i++;
             }
-            start[i] = '\0';
-            i++;
-            int j = 0;
-            while(input[i] != '\0'){
-                goal[j] = input[i];
+            if(lastNW != i-1){
+                start[i] = '\0';
                 i++;
-                j++;
-            }
-            goal[j] = '\0';
-
-            node *src = graph_find_node(g, start);
-            node *dest = graph_find_node(g, goal);
-            if(src == NULL) {
-                printf("The node '%s' does not exist in the given map.\n\n", start);
-            } else if(dest == NULL){
-                printf("The node '%s' does not exist in the given map.\n\n", goal);
-            } else{
-                if(find_path(g, src, dest)){
-                    printf("There is a path from %s to %s.\n\n", start, goal);
-                } else{
-                    printf("There is no path from %s to %s.\n\n", start, goal);
+                int j = 0;
+                while(!isspace(input[i]) && input[i] != '\0'){
+                    goal[j] = input[i];
+                    i++;
+                    j++;
                 }
+                goal[j] = '\0';
+                if(lastNW == i-1){
+                    node *src = graph_find_node(g, start);
+                    node *dest = graph_find_node(g, goal);
+                    if(src == NULL) {
+                        printf("The node '%s' does not exist in the given map.\n\n", start);
+                    } else if(dest == NULL){
+                        printf("The node '%s' does not exist in the given map.\n\n", goal);
+                    } else{
+                        if(find_path(g, src, dest)){
+                            printf("There is a path from %s to %s.\n\n", start, goal);
+                        } else{
+                            printf("There is no path from %s to %s.\n\n", start, goal);
+                        }
+                    }
+                } else{
+                    printf("Please enter exactly two nodes in the format 'n1 n2'.\n\n");
+                }
+
+            } else{
+                printf("Please enter exactly two nodesin the format 'n1 n2'.\n\n");
             }
         }
 
-    }while(strcmp(input, "quit") != 0);
-    printf("Normal exit.\n");
 
-    //Kill everything
+    }while(strcmp(input, "quit") != 0);
+
     array_1d_kill(labels);
     graph_kill(g);
     array_1d_kill(cleanMap);
-    //table_kill(matrix);
+
+    printf("Normal exit.\n");
     return 0;
 }
 
