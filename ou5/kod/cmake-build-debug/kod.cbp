@@ -8,33 +8,33 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/rasmus/doa/ou5/kod/cmake-build-debug"/>
+				<Option working_dir="/mnt/c/Users/Rasmus Lyxell/doa/ou5/kod/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/rasmus/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/rasmus/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/rasmus/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/rasmus/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Rasmus\ Lyxell/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Rasmus\ Lyxell/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Rasmus\ Lyxell/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Rasmus\ Lyxell/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/rasmus/doa/ou5/kod/cmake-build-debug"/>
+				<Option working_dir="/mnt/c/Users/Rasmus Lyxell/doa/ou5/kod/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/rasmus/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/rasmus/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/rasmus/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/rasmus/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Rasmus\ Lyxell/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Rasmus\ Lyxell/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Rasmus\ Lyxell/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Rasmus\ Lyxell/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="kod">
-				<Option output="/home/rasmus/doa/ou5/kod/cmake-build-debug/kod" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/rasmus/doa/ou5/kod/cmake-build-debug"/>
+				<Option output="/mnt/c/Users/Rasmus Lyxell/doa/ou5/kod/cmake-build-debug/kod" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/Users/Rasmus Lyxell/doa/ou5/kod/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/home/rasmus/doa/ou5/kod/../../datastructures-v1.0.8.2/include"/>
+					<Add directory="/mnt/c/Users/Rasmus Lyxell/doa/ou5/kod/../../datastructures-v1.0.8.2/include"/>
 					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
@@ -42,20 +42,20 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/rasmus/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 kod"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/rasmus/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/rasmus/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/rasmus/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Rasmus\ Lyxell/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 kod"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Rasmus\ Lyxell/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Rasmus\ Lyxell/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Rasmus\ Lyxell/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="kod/fast">
-				<Option output="/home/rasmus/doa/ou5/kod/cmake-build-debug/kod" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/rasmus/doa/ou5/kod/cmake-build-debug"/>
+				<Option output="/mnt/c/Users/Rasmus Lyxell/doa/ou5/kod/cmake-build-debug/kod" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/Users/Rasmus Lyxell/doa/ou5/kod/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/home/rasmus/doa/ou5/kod/../../datastructures-v1.0.8.2/include"/>
+					<Add directory="/mnt/c/Users/Rasmus Lyxell/doa/ou5/kod/../../datastructures-v1.0.8.2/include"/>
 					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
@@ -63,36 +63,39 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/rasmus/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 kod/fast"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/rasmus/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/rasmus/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/rasmus/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Rasmus\ Lyxell/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 kod/fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Rasmus\ Lyxell/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Rasmus\ Lyxell/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Rasmus\ Lyxell/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/rasmus/doa/ou5/kod/cmake-build-debug"/>
+				<Option working_dir="/mnt/c/Users/Rasmus Lyxell/doa/ou5/kod/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/rasmus/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/rasmus/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/rasmus/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/rasmus/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Rasmus\ Lyxell/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Rasmus\ Lyxell/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Rasmus\ Lyxell/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Rasmus\ Lyxell/doa/ou5/kod/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/rasmus/doa/datastructures-v1.0.8.2/src/array_1d/array_1d.c">
+		<Unit filename="/mnt/c/Users/Rasmus Lyxell/doa/datastructures-v1.0.8.2/src/dlist/dlist.c">
 			<Option target="kod"/>
 		</Unit>
-		<Unit filename="/home/rasmus/doa/datastructures-v1.0.8.2/src/dlist/dlist.c">
+		<Unit filename="/mnt/c/Users/Rasmus Lyxell/doa/datastructures-v1.0.8.2/src/list/list.c">
 			<Option target="kod"/>
 		</Unit>
-		<Unit filename="/home/rasmus/doa/ou5/kod/graph.c">
+		<Unit filename="/mnt/c/Users/Rasmus Lyxell/doa/datastructures-v1.0.8.2/src/queue/queue.c">
 			<Option target="kod"/>
 		</Unit>
-		<Unit filename="/home/rasmus/doa/ou5/kod/is_connected.c">
+		<Unit filename="/mnt/c/Users/Rasmus Lyxell/doa/ou5/kod/graph.c">
 			<Option target="kod"/>
 		</Unit>
-		<Unit filename="/home/rasmus/doa/ou5/kod/CMakeLists.txt">
+		<Unit filename="/mnt/c/Users/Rasmus Lyxell/doa/ou5/kod/is_connected.c">
+			<Option target="kod"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/Rasmus Lyxell/doa/ou5/kod/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

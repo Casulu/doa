@@ -15,6 +15,7 @@
  *
  * Version information:
  *   v1.0  2019-02-21: First public version.
+ *   v2.0  2020-03-30: Fixed memory error caused by the nodes array (wrong type allocated).
  */
 
 // ====================== PUBLIC DATA TYPES ==========================
@@ -63,7 +64,7 @@ graph *graph_empty(int max_nodes)
 {
 	graph *g = calloc(1, sizeof(graph));
 	g->numNodes = 0;
-	g->nodes = calloc(max_nodes, sizeof(node*));
+	g->nodes = calloc(max_nodes, sizeof(node));
 	return g;
 }
 

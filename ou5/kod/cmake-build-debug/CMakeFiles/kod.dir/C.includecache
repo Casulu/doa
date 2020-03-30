@@ -20,9 +20,59 @@ util.h
 dlist.h
 ../../../datastructures-v1.0.8.2/include/dlist.h
 
+../../../datastructures-v1.0.8.2/include/list.h
+stdbool.h
+-
+util.h
 ../../../datastructures-v1.0.8.2/include/util.h
 
-/home/rasmus/doa/ou5/kod/is_connected.c
+../../../datastructures-v1.0.8.2/include/queue.h
+stdbool.h
+-
+util.h
+../../../datastructures-v1.0.8.2/include/util.h
+
+../../../datastructures-v1.0.8.2/include/util.h
+
+/mnt/c/Users/Rasmus Lyxell/doa/datastructures-v1.0.8.2/src/dlist/dlist.c
+stdio.h
+-
+stdlib.h
+-
+dlist.h
+/mnt/c/Users/Rasmus Lyxell/doa/datastructures-v1.0.8.2/src/dlist/dlist.h
+
+/mnt/c/Users/Rasmus Lyxell/doa/datastructures-v1.0.8.2/src/list/list.c
+stdio.h
+-
+stdlib.h
+-
+list.h
+/mnt/c/Users/Rasmus Lyxell/doa/datastructures-v1.0.8.2/src/list/list.h
+
+/mnt/c/Users/Rasmus Lyxell/doa/datastructures-v1.0.8.2/src/queue/queue.c
+stdio.h
+-
+stdlib.h
+-
+queue.h
+/mnt/c/Users/Rasmus Lyxell/doa/datastructures-v1.0.8.2/src/queue/queue.h
+list.h
+/mnt/c/Users/Rasmus Lyxell/doa/datastructures-v1.0.8.2/src/queue/list.h
+
+/mnt/c/Users/Rasmus Lyxell/doa/ou5/kod/graph.c
+stdbool.h
+-
+stdlib.h
+-
+string.h
+-
+graph.h
+/mnt/c/Users/Rasmus Lyxell/doa/ou5/kod/graph.h
+dlist.h
+/mnt/c/Users/Rasmus Lyxell/doa/ou5/kod/dlist.h
+
+/mnt/c/Users/Rasmus Lyxell/doa/ou5/kod/is_connected.c
 stdbool.h
 -
 stdio.h
@@ -33,8 +83,10 @@ string.h
 -
 errno.h
 -
+ctype.h
+-
 graph.h
-/home/rasmus/doa/ou5/kod/graph.h
-dlist.h
-/home/rasmus/doa/ou5/kod/dlist.h
+/mnt/c/Users/Rasmus Lyxell/doa/ou5/kod/graph.h
+queue.h
+/mnt/c/Users/Rasmus Lyxell/doa/ou5/kod/queue.h
 
