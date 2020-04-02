@@ -153,7 +153,7 @@ FILE *readFile(const char *name){
  * @param output - char array to write output to
  * @return - length of word read
  */
-int readToEOW(char *line, int offset, char *output){
+int readToken(char *line, int offset, char *output){
     char *outBuff = malloc((MAX_NODE_LENGTH + 1) * sizeof(char));
     int j = 0;
 
@@ -166,11 +166,6 @@ int readToEOW(char *line, int offset, char *output){
             fprintf(stderr, "ERROR: Edge line:\n%scontained non alphanumerical character '%c'\n", line, line[j + offset]);
             exit(EXIT_FAILURE);
         }
-    }
-    if(j > MAX_NODE_LENGTH){
-        //Print error and exit if node is longer than specified max length
-        fprintf(stderr, "ERROR: First node in line:\n%scontains more than %d characters", line, MAX_NODE_LENGTH);
-        exit(EXIT_FAILURE);
     }
     //End string and copy to first label
     outBuff[j] = '\0';
@@ -191,7 +186,12 @@ void readLabels(char line[MAX_LINE_LENGTH], char *lbl1, char *lbl2){
     int offset = firstNonWhiteSpace(line); //Offset for the index of the line being read.
     int length; //Index for the line being read
 
-    length = readToEOW(line, offset, lbl1);
+    length = readToken(line, offset, lbl1);
+    if(length > MAX_NODE_LENGTH){
+        //Print error and exit if node is longer than specified max length
+        fprintf(stderr, "ERROR: First node in line:\n%scontains more than %d characters", line, MAX_NODE_LENGTH);
+        exit(EXIT_FAILURE);
+    }
 
     if(length + offset - 1 == lastNonWhiteSpaceNoComment(line)){
         //Print error and exit if line buffer index reached last readable position after one node
@@ -201,7 +201,7 @@ void readLabels(char line[MAX_LINE_LENGTH], char *lbl1, char *lbl2){
     //Start reading the read line until the max node length is passed, until whitespace is reached, or until the end of the line
     if(line[length + offset] != ' '){
         //Print error and exit if first node is last node on line
-        fprintf(stderr, "ERROR: Separator other than space in Line:\n%s", line);
+        fprintf(stderr, "ERROR: Separator other than space in line:\n%s", line);
         exit(EXIT_FAILURE);
     }
 
@@ -211,7 +211,12 @@ void readLabels(char line[MAX_LINE_LENGTH], char *lbl1, char *lbl2){
     }
     offset = length + offset;
 
-    length = readToEOW(line, offset, lbl2);
+    length = readToken(line, offset, lbl2);
+    if(length > MAX_NODE_LENGTH){
+        //Print error and exit if node is longer than specified max length
+        fprintf(stderr, "ERROR: Second node in line:\n%scontains more than %d characters", line, MAX_NODE_LENGTH);
+        exit(EXIT_FAILURE);
+    }
     //Keep reading line buffer until the max node length is passed, until whitespace is reached, until a comment is reached, or until the end of the line
     if(length + offset - 1 != lastNonWhiteSpaceNoComment(line)){
         //Print error and exit if line buffer index reached last readable position after one node
@@ -309,44 +314,44 @@ graph *interpretMap(FILE *map)
             }
         } while(!reachedEdge && fgets(lineBuffer, MAX_LINE_LENGTH, map));
 
-        //Buffers for inserting nodes
-        char *lbl1 = calloc(MAX_NODE_LENGTH + 1, sizeof(char));
-        char *lbl2 = calloc(MAX_NODE_LENGTH + 1, sizeof(char));
-
+        
         if(reachedEdge){
-            readLabels(lineBuffer, lbl1, lbl2);
-        }
+            //Buffers for inserting nodes	
+            char *lbl1 = calloc(MAX_NODE_LENGTH + 1, sizeof(char));
+            char *lbl2 = calloc(MAX_NODE_LENGTH + 1, sizeof(char));
 
-        //Insert labels as nodes if not already in graph
-        if(graph_find_node(g, lbl1) == NULL){
-            graph_insert_node(g, lbl1);
-        }
-        if(graph_find_node(g, lbl2) == NULL){
-            graph_insert_node(g, lbl2);
-        }
+	        readLabels(lineBuffer, lbl1, lbl2);
 
-        //Create pointers for the nodes corresponding to the read labels
-        node *n1 = graph_find_node(g, lbl1);
-        node *n2 = graph_find_node(g, lbl2);
+            //Insert labels as nodes if not already in graph
+            if(graph_find_node(g, lbl1) == NULL){
+                graph_insert_node(g, lbl1);
+            }
+            if(graph_find_node(g, lbl2) == NULL){
+                graph_insert_node(g, lbl2);
+            }
 
-        if(insertNonDupeEdge(g, n1, n2)){
-            actualNumEdges++;
-        } else{
-            //Print error and exit if a duplicate edge was found
-            fprintf(stderr, "ERROR: File had duplicate edges of '%s %s'\n", lbl1, lbl2);
-            exit(EXIT_FAILURE);
+            //Create pointers for the nodes corresponding to the read labels
+            node *n1 = graph_find_node(g, lbl1);
+            node *n2 = graph_find_node(g, lbl2);
+
+            if(insertNonDupeEdge(g, n1, n2)){
+                actualNumEdges++;
+            } else{
+                 //Print error and exit if a duplicate edge was found
+                 fprintf(stderr, "ERROR: File had duplicate edges of '%s %s'\n", lbl1, lbl2);
+                 exit(EXIT_FAILURE);
+            }
+            //Done with labels
+            free(lbl1);
+            free(lbl2);
         }
-        //Done with labels
-        free(lbl1);
-        free(lbl2);
-
     }
     if(actualNumEdges > numEdges){
-        fprintf(stderr, "ERROR: File stated %d but had at least %d\n", numEdges, actualNumEdges);
+        fprintf(stderr, "ERROR: File stated %d edges but had at least %d\n", numEdges, actualNumEdges);
         exit(EXIT_FAILURE);
     }
     if(actualNumEdges < numEdges){
-        fprintf(stderr, "ERROR: File stated %d edges but file had %d\n", numEdges, actualNumEdges);
+        fprintf(stderr, "ERROR: File stated %d edges but had %d\n", numEdges, actualNumEdges);
         exit(EXIT_FAILURE);
     }
     return g;

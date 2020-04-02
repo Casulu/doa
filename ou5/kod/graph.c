@@ -27,7 +27,7 @@ struct node {
 };
 
 struct graph{
-	node *nodes;
+	node **nodes;
 	int numNodes;
 	int numEdges;
 };
